@@ -58,3 +58,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+UserSettings/EditorUserSettings.asset
+omnisharp.json
+.vscode/launch.json
