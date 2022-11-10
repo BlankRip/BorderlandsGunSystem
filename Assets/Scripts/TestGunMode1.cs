@@ -3,29 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.Guns {
-    public class TestGunMode1 : GunMode, IGunMode {
-        public GunModeData GetADSData() {
-            throw new System.NotImplementedException();
+    public class TestGunMode1 : GunMode
+    {
+        public override void ReloadEvent() {
+            Debug.Log("Test Reload event");
         }
 
-        public Sprite GetAdsSprite() {
-            return adsSprite;
-        }
-
-        public GameObject GetBullet() {
-            throw new System.NotImplementedException();
-        }
-
-        public GunModeData GetNormalData() {
-            throw new System.NotImplementedException();
-        }
-
-        public void ReloadEvent() {
-            throw new System.NotImplementedException();
-        }
-
-        public void SwithcModeEvent() {
-            throw new System.NotImplementedException();
+        public override void SwithcModeEvent() {
+            Debug.Log("Test Switch Event");
         }
     }
 }

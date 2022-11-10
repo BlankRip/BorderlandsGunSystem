@@ -6,18 +6,18 @@ namespace Gameplay.Guns {
     public enum FiringMode {SemiAuto, Auto}
     public interface IGunMode
     {
-        GunModeData GetADSData();
         GunModeData GetNormalData();
-        GameObject GetBullet();
+        GunModeData GetADSData();
         Sprite GetAdsSprite();
         void ReloadEvent();
         void SwithcModeEvent();
     }
 
     [System.Serializable]
-    public struct GunModeData
+    public class GunModeData
     {
         public FiringMode fireMode;
+        public GameObject bulletObj;
         public string modeDisplayName;
         public float recoil;
         public float gapBtwShots;
@@ -25,6 +25,7 @@ namespace Gameplay.Guns {
 
         public GunModeData() {
             fireMode = FiringMode.SemiAuto;
+            bulletObj = null;
             modeDisplayName = "Not Entered";
             recoil = 0;
             gapBtwShots = 0.3f;
@@ -33,6 +34,7 @@ namespace Gameplay.Guns {
 
         public void CopyStats(GunModeData copyFrom) {
             this.fireMode = copyFrom.fireMode;
+            this.bulletObj = copyFrom.bulletObj;
             this.recoil = copyFrom.recoil;
             this.gapBtwShots = copyFrom.gapBtwShots;
             this.spreadAmount = copyFrom.spreadAmount;

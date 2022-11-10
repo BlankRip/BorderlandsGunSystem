@@ -44,13 +44,17 @@ namespace Gameplay.Guns {
             //move into ads view
         }
 
-        public virtual void Fire() { }
+        public virtual void Fire() {
+        }
 
-        public void Reload() { }
+        public void Reload() {
+            currentGunMode.ReloadEvent();
+        }
 
         public void SwithcMode() {
             if(inADS)
                 ExitADS();
+            currentGunMode.SwithcModeEvent();
             currentGunMode = (currentGunMode == modeA) ? modeB : modeA;
             currentModeData = currentGunMode.GetNormalData();
         }
