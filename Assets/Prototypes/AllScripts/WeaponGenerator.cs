@@ -36,16 +36,21 @@ public class WeaponGenerator : MonoBehaviour
 		//getting random body from a list
 		//instantiating the random body
 		GameObject randBody = GetRandomParts(bodyParts);
-        Instantiate(randBody, Vector3.zero, Quaternion.identity);
+        //Instantiate(randBody, Vector3.zero, Quaternion.identity);
+
+        //assigning body instatiate to a varialble and getting reference to WeaponBody
+        GameObject instantiateBody = Instantiate(randBody, Vector3.zero, Quaternion.identity);
+        WeaponBody weaponBody = instantiateBody.GetComponent<WeaponBody>();                      //to get sockets from WeaponBody
+
 
 		GameObject randBarrel = GetRandomParts(barrelParts);
-		Instantiate(randBarrel, Vector3.zero, Quaternion.identity);
+		Instantiate(randBarrel, weaponBody.barrelSocket.position, Quaternion.identity);
 
 		GameObject randMagazine = GetRandomParts(magazineParts);
-		Instantiate(randMagazine, Vector3.zero, Quaternion.identity);
+		Instantiate(randMagazine, weaponBody.magazineSocket.position, Quaternion.identity);
 
 		GameObject randGrip = GetRandomParts(gripParts);
-		Instantiate(randGrip, Vector3.zero, Quaternion.identity);
+		Instantiate(randGrip, weaponBody.gripSocket.position, Quaternion.identity);
 
 
 	}
