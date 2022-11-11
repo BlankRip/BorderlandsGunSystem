@@ -11,10 +11,10 @@ namespace Gameplay.Player {
 
         private float mouseX;
         private float mouseY;
-        private Camera camera;
+        private Camera cam;
 
         private void Start() {
-            camera = Camera.main;
+            cam = Camera.main;
         }
 
         void LateUpdate()
@@ -24,7 +24,7 @@ namespace Gameplay.Player {
             mouseY = Mathf.Clamp(mouseY, mouseYMin, mouseYMax);
 
             transform.rotation = Quaternion.Euler(0, mouseX, 0);                         // Rotating player with change in mouse X value
-            camera.transform.rotation = Quaternion.Euler(mouseY, mouseX, 0);             // Rotationg camera with change in mouse X and Y values
+            cam.transform.rotation = Quaternion.Euler(mouseY, mouseX, 0);             // Rotationg camera with change in mouse X and Y values
         }
     }
 }
