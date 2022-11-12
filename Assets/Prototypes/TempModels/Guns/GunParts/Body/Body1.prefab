@@ -105,8 +105,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barrelSocket: {fileID: 3277163638027412660}
-  magazineSocket: {fileID: 2810444524529187227}
-  gripSocket: {fileID: 8268400002834779333}
+  magazineSocket: {fileID: 8268400002834779333}
+  gripSocket: {fileID: 2810444524529187227}
 --- !u!1 &7497093017248884286
 GameObject:
   m_ObjectHideFlags: 0
