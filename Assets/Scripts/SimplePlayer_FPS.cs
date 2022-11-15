@@ -42,9 +42,9 @@ namespace Gameplay.Player {
         private void Move() {
             if (grounded && gravityVector.y < 0)
                 gravityVector.y = -2;
-            Vector3 moveDir = ((transform.forward * verticalInput) + (transform.right * horizontalInput)).normalized;
-            Vector3 move = moveDir * movementSpeed * Time.deltaTime;
-            cc.Move(move);
+            Vector3 _moveDir = ((transform.forward * verticalInput) + (transform.right * horizontalInput)).normalized;
+            Vector3 _move = _moveDir * movementSpeed * Time.deltaTime;
+            cc.Move(_move);
 
             if (jump) {
                 if(grounded)

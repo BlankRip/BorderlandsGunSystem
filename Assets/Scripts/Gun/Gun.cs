@@ -13,13 +13,13 @@ namespace Gameplay.Guns {
         protected bool inADS;
 
         protected void Start() {
-            IGunMode[] modes = GetComponents<IGunMode>();
-            if(modes.Length != 2) {
+            IGunMode[] _modes = GetComponents<IGunMode>();
+            if(_modes.Length != 2) {
                 Debug.LogError("There is either less than or more than 2 gun modes attached");
                 return;
             }
-            modeA = modes[0];
-            modeB = modes[1];
+            modeA = _modes[0];
+            modeB = _modes[1];
             adsSprite_A = modeA.GetAdsSprite();
             adsSprite_B = modeB.GetAdsSprite();
 
@@ -28,7 +28,7 @@ namespace Gameplay.Guns {
         }
 
         private void Update() {
-            if(currentModeData.fireMode == FiringMode.SemiAuto)
+            if(currentModeData.FireMode == FiringMode.SemiAuto)
                 return;
         }
 

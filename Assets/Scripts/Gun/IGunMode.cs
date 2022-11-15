@@ -16,28 +16,30 @@ namespace Gameplay.Guns {
     [System.Serializable]
     public class GunModeData
     {
-        public FiringMode fireMode;
-        public GameObject bulletObj;
-        public string modeDisplayName;
-        public float recoil;
-        public float gapBtwShots;
-        public float spreadAmount;
+        public FiringMode FireMode;
+        public GameObject BulletObj_GO;
+        public string ModeDisplayName_S;
+        public float RecoilAmount_F;
+        public float GapBtwShots_F;
+        public float SpreadAmount_F;
+        public int BulletsPerBurst_I;
 
         public GunModeData() {
-            fireMode = FiringMode.SemiAuto;
-            bulletObj = null;
-            modeDisplayName = "Not Entered";
-            recoil = 0;
-            gapBtwShots = 0.3f;
-            spreadAmount = 1;
+            FireMode = FiringMode.SemiAuto;
+            BulletObj_GO = null;
+            ModeDisplayName_S = "Not Entered";
+            RecoilAmount_F = 0;
+            GapBtwShots_F = 0.3f;
+            SpreadAmount_F = 1;
+            BulletsPerBurst_I = -1;
         }
 
         public void CopyStats(GunModeData copyFrom) {
-            this.fireMode = copyFrom.fireMode;
-            this.bulletObj = copyFrom.bulletObj;
-            this.recoil = copyFrom.recoil;
-            this.gapBtwShots = copyFrom.gapBtwShots;
-            this.spreadAmount = copyFrom.spreadAmount;
+            this.FireMode = copyFrom.FireMode;
+            this.BulletObj_GO = copyFrom.BulletObj_GO;
+            this.RecoilAmount_F = copyFrom.RecoilAmount_F;
+            this.GapBtwShots_F = copyFrom.GapBtwShots_F;
+            this.SpreadAmount_F = copyFrom.SpreadAmount_F;
         }
     }
 }
