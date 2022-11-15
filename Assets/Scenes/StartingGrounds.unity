@@ -522,6 +522,7 @@ MonoBehaviour:
   movementSpeed: 10
   gravity: -19.2
   jumpHight: 3
+  testGun: {fileID: 1021345005}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,21 +641,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normal:
-    fireMode: 0
-    bulletObj: {fileID: 0}
-    modeDisplayName: Not Entered
-    recoil: 0
-    gapBtwShots: 0.3
-    spreadAmount: 1
+    FireMode: 0
+    BulletObj_GO: {fileID: 0}
+    ModeDisplayName_S: Not Entered
+    RecoilAmount_F: 0
+    GapBtwShots_F: 0.3
+    SpreadAmount_F: 1
+    BulletsPerBurst_I: -1
   copyNormalToADS: 0
   adsSprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   ads:
-    fireMode: 0
-    bulletObj: {fileID: 0}
-    modeDisplayName: Not Entered
-    recoil: 0
-    gapBtwShots: 0.3
-    spreadAmount: 1
+    FireMode: 1
+    BulletObj_GO: {fileID: 0}
+    ModeDisplayName_S: Not Entered
+    RecoilAmount_F: 0
+    GapBtwShots_F: 0.1
+    SpreadAmount_F: 1
+    BulletsPerBurst_I: -1
 --- !u!114 &1021345004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,21 +671,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normal:
-    fireMode: 0
-    bulletObj: {fileID: 0}
-    modeDisplayName: Not Entered
-    recoil: 2
-    gapBtwShots: 1
-    spreadAmount: 0.2
-  copyNormalToADS: 1
+    FireMode: 1
+    BulletObj_GO: {fileID: 0}
+    ModeDisplayName_S: Not Entered
+    RecoilAmount_F: 0
+    GapBtwShots_F: 0.3
+    SpreadAmount_F: 1
+    BulletsPerBurst_I: -1
+  copyNormalToADS: 0
   adsSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   ads:
-    fireMode: 0
-    bulletObj: {fileID: 0}
-    modeDisplayName: Not Entered
-    recoil: 0
-    gapBtwShots: 0.3
-    spreadAmount: 1
+    FireMode: 0
+    BulletObj_GO: {fileID: 0}
+    ModeDisplayName_S: Not Entered
+    RecoilAmount_F: 0
+    GapBtwShots_F: 0.1
+    SpreadAmount_F: 1
+    BulletsPerBurst_I: 3
 --- !u!114 &1021345005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -695,6 +700,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475f03a69e0bd514e9c45bd04d6ed240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clipSize: 7
+  availableAmmo: 100
 --- !u!65 &1021345006
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -764,12 +771,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1021345002}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.7408524, y: 5.610439, z: 4.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.657, z: 0.949}
+  m_LocalScale: {x: 0.29531586, y: 0.2864556, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 2095896419}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1240035989
 GameObject:
@@ -976,6 +983,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}
+  - {fileID: 1021345009}
   m_Father: {fileID: 892620383}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

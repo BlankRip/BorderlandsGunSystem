@@ -5,12 +5,22 @@ using UnityEngine;
 namespace Gameplay.Guns {
     public class Gun : MonoBehaviour
     {
-        private IGunMode modeA, modeB;
+        [SerializeField] protected int clipSize = 7;
+        [SerializeField] protected int availableAmmo = 100;   //TODO:: should not be here and assigned based on gun type
+        protected int currentInClip;
+
+        protected IGunMode modeA, modeB;
 
         protected Sprite adsSprite_A, adsSprite_B;
         protected IGunMode currentGunMode;
         protected GunModeData currentModeData;
-        protected bool inADS;
+
+        protected enum GunState {Idel, InADS, Reloading};
+        protected GunState gunState;
+        protected GunState stateBeforeReload;
+        protected bool firing;
+        protected float timer;
+        protected int burstTracker;
 
         protected void Start() {
             IGunMode[] _modes = GetComponents<IGunMode>();
@@ -25,35 +35,99 @@ namespace Gameplay.Guns {
 
             currentGunMode = modeA;
             currentModeData = currentGunMode.GetNormalData();
+            gunState = GunState.Idel;
+            currentInClip = clipSize;
         }
 
         private void Update() {
-            if(currentModeData.FireMode == FiringMode.SemiAuto)
+            if(gunState == GunState.Reloading)
                 return;
+            
+            timer += Time.deltaTime;
+            if(timer > currentModeData.GapBtwShots_F) {
+                if(firing) {
+                    Fire();
+                    timer = 0;
+                    if(currentModeData.FireMode == FiringMode.SemiAuto) {
+                        burstTracker++;
+                        if(burstTracker >= currentModeData.BulletsPerBurst_I)
+                            firing = false;
+                    }
+                }
+            }
         }
 
         public void EnterADS() {
             currentModeData = currentGunMode.GetADSData();
-            inADS = true;
+            gunState = GunState.InADS;
+            Debug.Log("ADS ENTERED");
             //move into ads view
         }
 
         public void ExitADS() {
+            if(gunState != GunState.InADS)
+                return;
             currentModeData = currentGunMode.GetNormalData();
-            inADS = false;
+            gunState = GunState.Idel;
+            Debug.Log("ADS EXITED");
             //move into ads view
         }
 
-        public virtual void Fire() {
+        public void StartFiring() {
+            if(currentModeData.FireMode == FiringMode.Auto) {
+                firing = true;
+            } else {
+                if(currentModeData.BulletsPerBurst_I > 0) {
+                    firing = true;
+                    burstTracker = 0;
+                } else
+                    Fire();
+            }
         }
 
-        public void Reload() {
+        protected virtual void Fire() {
+            if(currentInClip > 0) {
+                currentInClip--;
+                Debug.Log("SHOT FIRED");
+            } else {
+                StartReload();
+            }
+        }
+
+        public void StopFiring() {
+            firing = false;
+        }
+
+        public virtual void StartReload() {
+            if(currentInClip == clipSize)
+                return;
+            
+            firing = false;
+            stateBeforeReload = gunState;
+            gunState = GunState.Reloading;
+            //Play Reload Animation
+            Reload();
+        }
+
+        private void Reload() {
+            Debug.Log("RELOADED");
+            availableAmmo -= (clipSize - currentInClip);
+            currentInClip = clipSize;
             currentGunMode.ReloadEvent();
+            gunState = stateBeforeReload;
+            if(stateBeforeReload == GunState.InADS)
+                EnterADS();
         }
 
-        public void SwithcMode() {
-            if(inADS)
+        public void StartModeSwitch() {
+            if(gunState == GunState.InADS)
                 ExitADS();
+            //Play switching animation
+            SwitchMode();
+        }
+
+        private void SwitchMode() {
+            Debug.Log("GUN MODE SWITCHED");
             currentGunMode.SwithcModeEvent();
             currentGunMode = (currentGunMode == modeA) ? modeB : modeA;
             currentModeData = currentGunMode.GetNormalData();
