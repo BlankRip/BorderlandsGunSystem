@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 730114399903607516}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.514, z: -0.278}
+  m_LocalPosition: {x: 0, y: -0.79, z: -0.278}
   m_LocalScale: {x: 1.9725424, y: 0.91156375, z: 0.30388936}
   m_Children: []
   m_Father: {fileID: 8186989933157399819}
@@ -105,8 +105,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barrelSocket: {fileID: 3277163638027412660}
-  magazineSocket: {fileID: 2810444524529187227}
-  gripSocket: {fileID: 8268400002834779333}
+  magazineSocket: {fileID: 8268400002834779333}
+  gripSocket: {fileID: 2810444524529187227}
 --- !u!1 &7497093017248884286
 GameObject:
   m_ObjectHideFlags: 0
