@@ -676,12 +676,12 @@ MonoBehaviour:
   normal:
     FireMode: 0
     BulletObj_GO: {fileID: 0}
-    ModeDisplayName_S: Not Entered
+    ModeDisplayName_S: Semi Auto
     RecoilAmount_F: 0
     GapBtwShots_F: 0.3
     SpreadAmount_F: 1
     BulletsPerBurst_I: -1
-  copyNormalToADS: 0
+  copyNormalToADS: 1
   adsSprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   ads:
     FireMode: 1
@@ -706,7 +706,7 @@ MonoBehaviour:
   normal:
     FireMode: 1
     BulletObj_GO: {fileID: 0}
-    ModeDisplayName_S: Not Entered
+    ModeDisplayName_S: Auto
     RecoilAmount_F: 0
     GapBtwShots_F: 0.3
     SpreadAmount_F: 1
