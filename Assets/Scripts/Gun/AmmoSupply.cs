@@ -9,7 +9,7 @@ namespace Gameplay.Guns {
         private class AmmoData {
             public int baseAmmo;
             public int maxAmmo;
-            public int currentAmmo;
+            [HideInInspector] public int currentAmmo;
 
             public AmmoData() {
                 baseAmmo = 30;
@@ -56,6 +56,5 @@ namespace Gameplay.Guns {
         public void TakeAmmoFromSupply(int _amount) {
             currentSupply.currentAmmo -= _amount;
         }
-
     }
 }
