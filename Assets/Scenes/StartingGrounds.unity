@@ -450,6 +450,7 @@ GameObject:
   - component: {fileID: 892620385}
   - component: {fileID: 892620384}
   - component: {fileID: 892620386}
+  - component: {fileID: 892620387}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -523,6 +524,38 @@ MonoBehaviour:
   gravity: -19.2
   jumpHight: 3
   testGun: {fileID: 1021345005}
+--- !u!114 &892620387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892620382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee508564f4144a4cb2140993992e08c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pistolAmmo:
+    baseAmmo: 30
+    maxAmmo: 150
+    currentAmmo: 0
+  smgAmmo:
+    baseAmmo: 56
+    maxAmmo: 300
+    currentAmmo: 0
+  shotGunAmmo:
+    baseAmmo: 20
+    maxAmmo: 80
+    currentAmmo: 0
+  sniperAmmo:
+    baseAmmo: 12
+    maxAmmo: 70
+    currentAmmo: 0
+  rockLauncherAmmo:
+    baseAmmo: 4
+    maxAmmo: 40
+    currentAmmo: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,8 +733,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475f03a69e0bd514e9c45bd04d6ed240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunType: 0
   clipSize: 7
-  availableAmmo: 100
 --- !u!65 &1021345006
 BoxCollider:
   m_ObjectHideFlags: 0

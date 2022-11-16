@@ -14,6 +14,8 @@ namespace Gameplay.Player {
 
         [Header("Testing")]
         [SerializeField] Gun testGun;
+        private Camera cachedCam;
+        private AmmoSupply mySupply;
 
         private Vector3 gravityVector;
         private float horizontalInput, verticalInput;
@@ -32,6 +34,10 @@ namespace Gameplay.Player {
             
             if(gravity > 0)
                 gravity *= -1;
+
+            cachedCam = Camera.main;
+            mySupply = GetComponent<AmmoSupply>();
+            testGun.Equip(cachedCam, mySupply);
         }
 
         private void Update() {

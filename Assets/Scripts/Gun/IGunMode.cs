@@ -34,12 +34,12 @@ namespace Gameplay.Guns {
             BulletsPerBurst_I = -1;
         }
 
-        public void CopyStats(GunModeData copyFrom) {
-            this.FireMode = copyFrom.FireMode;
-            this.BulletObj_GO = copyFrom.BulletObj_GO;
-            this.RecoilAmount_F = copyFrom.RecoilAmount_F;
-            this.GapBtwShots_F = copyFrom.GapBtwShots_F;
-            this.SpreadAmount_F = copyFrom.SpreadAmount_F;
+        public void CopyStats(GunModeData _copyFrom) {
+            this.FireMode = _copyFrom.FireMode;
+            this.BulletObj_GO = _copyFrom.BulletObj_GO;
+            this.RecoilAmount_F = _copyFrom.RecoilAmount_F;
+            this.GapBtwShots_F = _copyFrom.GapBtwShots_F;
+            this.SpreadAmount_F = _copyFrom.SpreadAmount_F;
         }
     }
 }

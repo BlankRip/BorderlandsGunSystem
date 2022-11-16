@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.Guns {
+    public enum GunType {Pistol, SMG, ShotGun, Sniper, RocketLauncher}
     public class Gun : MonoBehaviour
     {
+        [SerializeField] GunType gunType;
         [SerializeField] protected int clipSize = 7;
-        [SerializeField] protected int availableAmmo = 100;   //TODO:: should not be here and assigned based on gun type
         protected int currentInClip;
+        protected AmmoSupply ammoSupply;
+
+        protected Camera playerCam;
 
         protected IGunMode modeA, modeB;
 
@@ -37,6 +41,14 @@ namespace Gameplay.Guns {
             currentModeData = currentGunMode.GetNormalData();
             gunState = GunState.Idel;
             currentInClip = clipSize;
+        }
+
+        public void Equip(Camera _camera, AmmoSupply _supply) {
+            if(playerCam == null)
+                playerCam = _camera;
+            if(ammoSupply == null)
+                ammoSupply = _supply;
+            ammoSupply.SetCurrentAmmoSupplier(gunType);
         }
 
         private void Update() {
@@ -99,7 +111,7 @@ namespace Gameplay.Guns {
         }
 
         public virtual void StartReload() {
-            if(currentInClip == clipSize)
+            if(currentInClip == clipSize || ammoSupply.GetAmmoAvailable() <= 0)
                 return;
             
             firing = false;
@@ -111,8 +123,16 @@ namespace Gameplay.Guns {
 
         private void Reload() {
             Debug.Log("RELOADED");
-            availableAmmo -= (clipSize - currentInClip);
-            currentInClip = clipSize;
+            int _amountToAdd = clipSize;
+            int _bulletsRequired = clipSize - currentInClip;
+            int _availableAmmo = ammoSupply.GetAmmoAvailable();
+            if(_bulletsRequired > _availableAmmo) {
+                _bulletsRequired = _availableAmmo;
+                _amountToAdd = currentInClip + _availableAmmo;
+            }
+            ammoSupply.TakeAmmoFromSupply(_bulletsRequired);
+            currentInClip = _amountToAdd;
+
             currentGunMode.ReloadEvent();
             gunState = stateBeforeReload;
             if(stateBeforeReload == GunState.InADS)
