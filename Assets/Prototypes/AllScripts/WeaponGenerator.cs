@@ -28,15 +28,21 @@ public class WeaponGenerator : MonoBehaviour
     void Update()
     {
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            GenerateWeapon();
-        }
+        StartUponPress();
         
     }
 
 
-    void GenerateWeapon()
+    void StartUponPress()
+    {
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			GenerateWeapon();
+		}
+
+	}
+
+	void GenerateWeapon()
     {
 
         if(prevWeapon != null)
@@ -63,6 +69,7 @@ public class WeaponGenerator : MonoBehaviour
        
 
 	}
+
 
 
     void SpawnWeaponPart(List<GameObject> parts, Transform socket)
