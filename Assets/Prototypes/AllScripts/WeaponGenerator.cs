@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,6 +12,8 @@ public class WeaponGenerator : MonoBehaviour
     public List<GameObject> magazineParts;
     public List<GameObject> gripParts;
     public List<GameObject> barrelParts;
+
+    GameObject prevWeapon;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +36,11 @@ public class WeaponGenerator : MonoBehaviour
     void GenerateWeapon()
     {
 
+        if(prevWeapon != null)
+        {
+            Destroy(prevWeapon);
+        }
+
 		//getting random body from a list
 		//instantiating the random body
 		GameObject randBody = GetRandomParts(bodyParts);
@@ -42,18 +50,22 @@ public class WeaponGenerator : MonoBehaviour
         GameObject instantiateBody = Instantiate(randBody, Vector3.zero, Quaternion.identity);
         WeaponBody weaponBody = instantiateBody.GetComponent<WeaponBody>();                      //to get sockets from WeaponBody
 
+        SpawnWeaponPart(barrelParts, weaponBody.barrelSocket);
+        SpawnWeaponPart(magazineParts, weaponBody.magazineSocket);
+        SpawnWeaponPart(gripParts, weaponBody.gripSocket);
 
-		GameObject randBarrel = GetRandomParts(barrelParts);
-		Instantiate(randBarrel, weaponBody.barrelSocket.position, Quaternion.identity);
-
-		GameObject randMagazine = GetRandomParts(magazineParts);
-		Instantiate(randMagazine, weaponBody.magazineSocket.position, Quaternion.identity);
-
-		GameObject randGrip = GetRandomParts(gripParts);
-		Instantiate(randGrip, weaponBody.gripSocket.position, Quaternion.identity);
-
+        prevWeapon = instantiateBody;
+       
 
 	}
+
+
+    void SpawnWeaponPart(List<GameObject> parts, Transform socket)
+    {
+        GameObject randomPart = GetRandomParts(parts);
+        GameObject instantiatePart = Instantiate(randomPart, socket.transform.position, socket.transform.rotation);
+        instantiatePart.transform.parent = socket;
+    }
 
 
     //function for getting random parts
