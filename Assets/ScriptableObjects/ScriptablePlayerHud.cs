@@ -6,6 +6,7 @@ namespace Gameplay.UI {
     [CreateAssetMenu()]
     public class ScriptablePlayerHud : ScriptableObject
     {
-        public IPlayerHud hud;
+        public IGunHud gunHud;
+        public IHealthHud healthHud;
     }
 }

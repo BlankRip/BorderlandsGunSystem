@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.Guns {
-    public enum GunType {Pistol, SMG, ShotGun, Sniper, RocketLauncher}
     public class Gun : MonoBehaviour
     {
         [SerializeField] GunType gunType;
