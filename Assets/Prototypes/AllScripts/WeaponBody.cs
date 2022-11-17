@@ -8,6 +8,8 @@ public class WeaponBody : MonoBehaviour
     public Transform barrelSocket;
     public Transform magazineSocket;
     public Transform gripSocket;
+    public Transform sightsSocket;
+    public Transform stockSocket;
 
     // Start is called before the first frame update
     void Start()

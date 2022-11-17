@@ -12,6 +12,9 @@ public class WeaponGenerator : MonoBehaviour
     public List<GameObject> magazineParts;
     public List<GameObject> gripParts;
     public List<GameObject> barrelParts;
+    public List<GameObject> sightsParts;
+    public List<GameObject> stockParts;
+
 
     GameObject prevWeapon;
 
@@ -53,6 +56,8 @@ public class WeaponGenerator : MonoBehaviour
         SpawnWeaponPart(barrelParts, weaponBody.barrelSocket);
         SpawnWeaponPart(magazineParts, weaponBody.magazineSocket);
         SpawnWeaponPart(gripParts, weaponBody.gripSocket);
+        SpawnWeaponPart(sightsParts, weaponBody.sightsSocket);
+        SpawnWeaponPart(stockParts, weaponBody.stockSocket);
 
         prevWeapon = instantiateBody;
        

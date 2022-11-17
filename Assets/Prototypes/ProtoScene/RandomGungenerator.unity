@@ -298,12 +298,23 @@ MonoBehaviour:
   magazineParts:
   - {fileID: 680287193178656569, guid: 9f98aabce7c8a80428cd9e0ebbd74f02, type: 3}
   - {fileID: 4502128920478210875, guid: c977f795f0a50fb418ddea3ca3ac2eed, type: 3}
+  - {fileID: 6781261895506338342, guid: abfb1fce64c07b749a074700924344ee, type: 3}
   gripParts:
   - {fileID: 772684120934208695, guid: f27c1c818cdc28e46ab875c97d931de1, type: 3}
   - {fileID: 3904050161304414078, guid: d2aefe67356d32243a0c62ba6586fa78, type: 3}
+  - {fileID: 7920301950136417798, guid: 6c770bec54a40ce4e8e750fd7a59da2d, type: 3}
   barrelParts:
   - {fileID: 5628516292725709789, guid: 7d2111c400ba5004991b2554df597c7a, type: 3}
   - {fileID: 7057270106112424435, guid: 88953e07dde22904d9cdeb43faa5a2fe, type: 3}
+  - {fileID: 7277621433443260117, guid: f32d182af62d2dd43be72992afc03080, type: 3}
+  sightsParts:
+  - {fileID: 7395349276171729989, guid: b1356335e6bdb7f48b5087abc0ee8238, type: 3}
+  - {fileID: 4884460992650738811, guid: 1c2fd8cb3394e3047944512c9faab9de, type: 3}
+  - {fileID: 8546291709130513686, guid: 197d1deb54670d341880cd8bbb6d5c9a, type: 3}
+  stockParts:
+  - {fileID: 6841606131655525211, guid: a412431babe0bf6479e6b8b3b935b008, type: 3}
+  - {fileID: 2268851893861762485, guid: e80c8e88c3563a848a935c3cc9dbd191, type: 3}
+  - {fileID: 3237091446538529067, guid: a48014c027b79be4cb04b08c0982e9db, type: 3}
 --- !u!4 &1928528706
 Transform:
   m_ObjectHideFlags: 0
