@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Gameplay.UI {
     [System.Serializable]
     public class GunTypeIcons {
-        public Sprite PistolIcon, SMGIcon, ShotGunIcon, SniperIcon, RocketLauncherIcon;
+        public Sprite PistolIcon, AssaultRifleIcon, SMGIcon, ShotGunIcon, SniperIcon, RocketLauncherIcon;
     }
 
     [System.Serializable]

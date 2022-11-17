@@ -1,20 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Gameplay.UI;
 
 namespace Gameplay.Guns {
     public class Gun : MonoBehaviour
     {
+        [SerializeField] ScriptablePlayerHud playerHud;
         [SerializeField] GunType gunType;
         [SerializeField] protected int clipSize = 7;
-        protected int currentInClip;
+        
+        private int currentInClip;
+        protected int CurrentInClip {
+            get{return currentInClip; } 
+            set{
+                currentInClip = value;
+                playerHud.gunHud.SetAmmoInClipText(CurrentInClip);
+            }
+        }
         protected AmmoSupply ammoSupply;
 
         protected Camera playerCam;
 
         protected IGunMode modeA, modeB;
 
-        protected Sprite adsSprite_A, adsSprite_B;
         protected IGunMode currentGunMode;
         protected GunModeData currentModeData;
 
@@ -25,7 +34,12 @@ namespace Gameplay.Guns {
         protected float timer;
         protected int burstTracker;
 
+        bool initilizedGun;
+
         protected void Start() {
+            if(initilizedGun)
+                return;
+            
             IGunMode[] _modes = GetComponents<IGunMode>();
             if(_modes.Length != 2) {
                 Debug.LogError("There is either less than or more than 2 gun modes attached");
@@ -33,13 +47,13 @@ namespace Gameplay.Guns {
             }
             modeA = _modes[0];
             modeB = _modes[1];
-            adsSprite_A = modeA.GetAdsSprite();
-            adsSprite_B = modeB.GetAdsSprite();
 
             currentGunMode = modeA;
             currentModeData = currentGunMode.GetNormalData();
             gunState = GunState.Idel;
-            currentInClip = clipSize;
+            CurrentInClip = clipSize;
+
+            initilizedGun = true;
         }
 
         public void Equip(Camera _camera, AmmoSupply _supply) {
@@ -48,6 +62,22 @@ namespace Gameplay.Guns {
             if(ammoSupply == null)
                 ammoSupply = _supply;
             ammoSupply.SetCurrentAmmoSupplier(gunType);
+
+            if(currentModeData == null)
+                Start();
+
+            if(playerHud != null && playerHud.gunHud != null) {
+                playerHud.gunHud.SetGunIcon(gunType);
+                playerHud.gunHud.SetElementIcon(currentModeData.Element);
+
+                playerHud.gunHud.SetGunModeText(currentModeData.ModeDisplayName_S);
+
+                playerHud.gunHud.SetAmmoInClipText(CurrentInClip);
+                playerHud.gunHud.SetAvailableAmmoText(ammoSupply.GetAmmoAvailable());
+
+                playerHud.gunHud.SetADSSprite(currentGunMode.GetAdsSprite());
+            } else
+                Debug.LogError("Gun Hud was not set up");
         }
 
         private void Update() {
@@ -73,6 +103,7 @@ namespace Gameplay.Guns {
             gunState = GunState.InADS;
             Debug.Log("ADS ENTERED");
             //move into ads view
+            playerHud.gunHud.ADSOverlay(true);
         }
 
         public void ExitADS() {
@@ -82,6 +113,7 @@ namespace Gameplay.Guns {
             gunState = GunState.Idel;
             Debug.Log("ADS EXITED");
             //move into ads view
+            playerHud.gunHud.ADSOverlay(false);
         }
 
         public void StartFiring() {
@@ -97,8 +129,8 @@ namespace Gameplay.Guns {
         }
 
         protected virtual void Fire() {
-            if(currentInClip > 0) {
-                currentInClip--;
+            if(CurrentInClip > 0) {
+                CurrentInClip--;
                 Debug.Log("SHOT FIRED");
             } else {
                 StartReload();
@@ -110,7 +142,7 @@ namespace Gameplay.Guns {
         }
 
         public virtual void StartReload() {
-            if(currentInClip == clipSize || ammoSupply.GetAmmoAvailable() <= 0)
+            if(CurrentInClip == clipSize || ammoSupply.GetAmmoAvailable() <= 0)
                 return;
             
             firing = false;
@@ -123,14 +155,15 @@ namespace Gameplay.Guns {
         private void Reload() {
             Debug.Log("RELOADED");
             int _amountToAdd = clipSize;
-            int _bulletsRequired = clipSize - currentInClip;
+            int _bulletsRequired = clipSize - CurrentInClip;
             int _availableAmmo = ammoSupply.GetAmmoAvailable();
             if(_bulletsRequired > _availableAmmo) {
                 _bulletsRequired = _availableAmmo;
-                _amountToAdd = currentInClip + _availableAmmo;
+                _amountToAdd = CurrentInClip + _availableAmmo;
             }
             ammoSupply.TakeAmmoFromSupply(_bulletsRequired);
-            currentInClip = _amountToAdd;
+            playerHud.gunHud.SetAvailableAmmoText(ammoSupply.GetAmmoAvailable());
+            CurrentInClip = _amountToAdd;
 
             currentGunMode.ReloadEvent();
             gunState = stateBeforeReload;
@@ -150,6 +183,10 @@ namespace Gameplay.Guns {
             currentGunMode.SwithcModeEvent();
             currentGunMode = (currentGunMode == modeA) ? modeB : modeA;
             currentModeData = currentGunMode.GetNormalData();
+
+            playerHud.gunHud.SetElementIcon(currentModeData.Element);
+            playerHud.gunHud.SetGunModeText(currentModeData.ModeDisplayName_S);
+            playerHud.gunHud.SetADSSprite(currentGunMode.GetAdsSprite());
         }
     }
 }

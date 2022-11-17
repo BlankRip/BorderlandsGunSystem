@@ -21,7 +21,7 @@ namespace Gameplay.Guns {
         [SerializeField] AmmoData pistolAmmo, smgAmmo, shotGunAmmo, sniperAmmo, rockLauncherAmmo;
         private AmmoData currentSupply;
 
-        private void Start() {
+        private void Awake() {
             pistolAmmo.currentAmmo = pistolAmmo.baseAmmo;
             smgAmmo.currentAmmo = smgAmmo.baseAmmo;
             shotGunAmmo.currentAmmo = shotGunAmmo.baseAmmo;

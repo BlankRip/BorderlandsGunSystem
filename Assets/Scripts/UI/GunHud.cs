@@ -57,6 +57,9 @@ namespace Gameplay.UI {
                 case GunType.Pistol:
                     gunIcon.sprite = gunTypeIcons.PistolIcon;
                     break;
+                case GunType.AssaultRifle:
+                    gunIcon.sprite = gunTypeIcons.AssaultRifleIcon;
+                    break;
                 case GunType.ShotGun:
                     gunIcon.sprite = gunTypeIcons.ShotGunIcon;
                     break;
