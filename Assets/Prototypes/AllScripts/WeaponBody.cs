@@ -13,6 +13,7 @@ public class WeaponBody : WeaponParams
     public Transform stockSocket;
 
     List<WeaponParams> weaponParts = new List<WeaponParams>();
+    public Dictionary<WeaponStatType, float> weaponStats = new Dictionary<WeaponStatType, float>();
 
     public void Initialize(WeaponParams barrel, WeaponParams scope, WeaponParams magazine, WeaponParams grip, WeaponParams stock)
     {
@@ -35,14 +36,15 @@ public class WeaponBody : WeaponParams
 			foreach (KeyValuePair<WeaponStatType, float> statType in part.stats)         //for each weapon part, looping thru all statistics available in the dictionary
             {
 
-                Debug.Log(statType.Key);
-                Debug.Log(statType.Value);
+                weaponStats.Add(statType.Key, statType.Value);                          //saving them in a dictionary
 
-            }
+				//Debug.Log(statType.Key);
+				//Debug.Log(statType.Value);
+
+			}
 
         }
 
-        //saving them in a collection
     }
 
 
