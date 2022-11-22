@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 
-public class WeaponBody : MonoBehaviour
+public class WeaponBody : WeaponParams
 {
 
     public Transform barrelSocket;
@@ -11,15 +12,38 @@ public class WeaponBody : MonoBehaviour
     public Transform sightsSocket;
     public Transform stockSocket;
 
-    // Start is called before the first frame update
-    void Start()
+    List<WeaponParams> weaponParts = new List<WeaponParams>();
+
+    public void Initialize(WeaponParams barrel, WeaponParams scope, WeaponParams magazine, WeaponParams grip, WeaponParams stock)
     {
-        
+        weaponParts.Add(barrel);
+        weaponParts.Add(scope);
+        weaponParts.Add(magazine);
+        weaponParts.Add(grip);
+        weaponParts.Add(stock);
+
+        CalculateStats();
+
     }
 
-    // Update is called once per frame
-    void Update()
+    void CalculateStats()
     {
-        
+        // going thru list of all weaponParts
+
+        foreach(WeaponParams part in weaponParts)
+		{                                                                                // going thru all statistics of all weapon parts
+			foreach (KeyValuePair<WeaponStatType, float> statType in part.stats)         //for each weapon part, looping thru all statistics available in the dictionary
+            {
+
+                Debug.Log(statType.Key);
+                Debug.Log(statType.Value);
+
+            }
+
+        }
+
+        //saving them in a collection
     }
+
+
 }

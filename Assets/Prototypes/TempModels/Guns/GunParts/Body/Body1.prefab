@@ -164,6 +164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6850885e53ed14b98fb0311b766d20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rawStats:
+  - statType: 0
+    minStatValue: 5
+    maxStatValue: 15
   barrelSocket: {fileID: 3277163638027412660}
   magazineSocket: {fileID: 8268400002834779333}
   gripSocket: {fileID: 2810444524529187227}

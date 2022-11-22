@@ -59,11 +59,13 @@ public class WeaponGenerator : MonoBehaviour
         GameObject instantiateBody = Instantiate(randBody, Vector3.zero, Quaternion.identity);
         WeaponBody weaponBody = instantiateBody.GetComponent<WeaponBody>();                      //to get sockets from WeaponBody
 
-        SpawnWeaponPart(barrelParts, weaponBody.barrelSocket);
-        SpawnWeaponPart(magazineParts, weaponBody.magazineSocket);
-        SpawnWeaponPart(gripParts, weaponBody.gripSocket);
-        SpawnWeaponPart(sightsParts, weaponBody.sightsSocket);
-        SpawnWeaponPart(stockParts, weaponBody.stockSocket);
+        WeaponParams barrel = SpawnWeaponPart(barrelParts, weaponBody.barrelSocket);
+		WeaponParams magazine = SpawnWeaponPart(magazineParts, weaponBody.magazineSocket);
+		WeaponParams grip = SpawnWeaponPart(gripParts, weaponBody.gripSocket);
+		WeaponParams sights = SpawnWeaponPart(sightsParts, weaponBody.sightsSocket);
+		WeaponParams stock = SpawnWeaponPart(stockParts, weaponBody.stockSocket);
+
+        weaponBody.Initialize(barrel, sights, magazine, grip, stock);
 
         prevWeapon = instantiateBody;
        
@@ -72,11 +74,14 @@ public class WeaponGenerator : MonoBehaviour
 
 
 
-    void SpawnWeaponPart(List<GameObject> parts, Transform socket)
+    WeaponParams SpawnWeaponPart(List<GameObject> parts, Transform socket)
     {
         GameObject randomPart = GetRandomParts(parts);
         GameObject instantiatePart = Instantiate(randomPart, socket.transform.position, socket.transform.rotation);
         instantiatePart.transform.parent = socket;
+
+        return instantiatePart.GetComponent<WeaponParams>();                                //making the instatntiatePart return WeaponParams
+
     }
 
 

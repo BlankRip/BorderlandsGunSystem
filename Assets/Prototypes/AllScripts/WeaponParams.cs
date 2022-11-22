@@ -10,14 +10,14 @@ public class WeaponParams : MonoBehaviour
 
 	public enum WeaponStatType
     {
-       Damage,
+        Damage,
         RoF,
         MagazineSize,
         Accuracy,
         ReloadSpeed
     }
 
-
+    [System.Serializable]
     public class WeaponStatPair
     {
         public WeaponStatType statType;
@@ -29,6 +29,7 @@ public class WeaponParams : MonoBehaviour
 
 
 	public List<WeaponStatPair> rawStats;
+    public Dictionary<WeaponStatType, float> stats = new Dictionary<WeaponStatType , float>();
 
 
     private void Awake()
@@ -36,7 +37,8 @@ public class WeaponParams : MonoBehaviour
         foreach(WeaponStatPair statPair in rawStats)
         {
             float chosenValue = Random.Range(statPair.minStatValue, statPair.maxStatValue);
-            Debug.Log(chosenValue);
+            stats.Add(statPair.statType, chosenValue);
+            //Debug.Log(chosenValue);
 
         }
     }
