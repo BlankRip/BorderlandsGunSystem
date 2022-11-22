@@ -18,11 +18,12 @@ namespace Gameplay.Guns {
             }
         }
 
-        [SerializeField] AmmoData pistolAmmo, smgAmmo, shotGunAmmo, sniperAmmo, rockLauncherAmmo;
+        [SerializeField] AmmoData pistolAmmo, assaultRifle, smgAmmo, shotGunAmmo, sniperAmmo, rockLauncherAmmo;
         private AmmoData currentSupply;
 
         private void Awake() {
             pistolAmmo.currentAmmo = pistolAmmo.baseAmmo;
+            assaultRifle.currentAmmo = assaultRifle.baseAmmo;
             smgAmmo.currentAmmo = smgAmmo.baseAmmo;
             shotGunAmmo.currentAmmo = shotGunAmmo.baseAmmo;
             sniperAmmo.currentAmmo = sniperAmmo.baseAmmo;
@@ -49,7 +50,7 @@ namespace Gameplay.Guns {
             }
         }
 
-        public int GetAmmoAvailable() {
+        public int GetAmmoInReserve() {
             return currentSupply.currentAmmo;
         }
 

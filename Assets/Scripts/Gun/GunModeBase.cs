@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.Guns {
-    public class GunMode : MonoBehaviour, IGunMode
+    public class GunModeBase : MonoBehaviour, IGunMode
     {
         [SerializeField] protected GunModeData normal;
         [SerializeField] protected bool copyNormalToADS;

@@ -73,7 +73,7 @@ namespace Gameplay.Guns {
                 playerHud.gunHud.SetGunModeText(currentModeData.ModeDisplayName_S);
 
                 playerHud.gunHud.SetAmmoInClipText(CurrentInClip);
-                playerHud.gunHud.SetAvailableAmmoText(ammoSupply.GetAmmoAvailable());
+                playerHud.gunHud.SetAvailableAmmoText(ammoSupply.GetAmmoInReserve());
 
                 playerHud.gunHud.SetADSSprite(currentGunMode.GetAdsSprite());
             } else
@@ -142,7 +142,7 @@ namespace Gameplay.Guns {
         }
 
         public virtual void StartReload() {
-            if(CurrentInClip == clipSize || ammoSupply.GetAmmoAvailable() <= 0)
+            if(CurrentInClip == clipSize || ammoSupply.GetAmmoInReserve() <= 0)
                 return;
             
             firing = false;
@@ -156,13 +156,13 @@ namespace Gameplay.Guns {
             Debug.Log("RELOADED");
             int _amountToAdd = clipSize;
             int _bulletsRequired = clipSize - CurrentInClip;
-            int _availableAmmo = ammoSupply.GetAmmoAvailable();
+            int _availableAmmo = ammoSupply.GetAmmoInReserve();
             if(_bulletsRequired > _availableAmmo) {
                 _bulletsRequired = _availableAmmo;
                 _amountToAdd = CurrentInClip + _availableAmmo;
             }
             ammoSupply.TakeAmmoFromSupply(_bulletsRequired);
-            playerHud.gunHud.SetAvailableAmmoText(ammoSupply.GetAmmoAvailable());
+            playerHud.gunHud.SetAvailableAmmoText(ammoSupply.GetAmmoInReserve());
             CurrentInClip = _amountToAdd;
 
             currentGunMode.ReloadEvent();
