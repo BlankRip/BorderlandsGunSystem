@@ -38,10 +38,10 @@ public class WeaponBody : WeaponParams
 
                 weaponStats.Add(statType.Key, statType.Value);                          //saving them in a dictionary
 
-				//Debug.Log(statType.Key);
-				//Debug.Log(statType.Value);
+                //Debug.Log(statType.Key);
+                //Debug.Log(statType.Value);
 
-			}
+            }
 
         }
 

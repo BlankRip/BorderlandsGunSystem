@@ -269,6 +269,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rawStats:
-  - statType: 3
-    minStatValue: 1
-    maxStatValue: 2
+  - statType: 1
+    minStatValue: 5
+    maxStatValue: 10

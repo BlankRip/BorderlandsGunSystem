@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rawStats:
-  - statType: 3
+  - statType: 4
     minStatValue: 20
     maxStatValue: 30
 --- !u!1 &5707525043443595760

@@ -173,9 +173,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rawStats:
-  - statType: 3
-    minStatValue: 1
-    maxStatValue: 4
+  - statType: 1
+    minStatValue: 5
+    maxStatValue: 10
 --- !u!1 &5643364303030799680
 GameObject:
   m_ObjectHideFlags: 0

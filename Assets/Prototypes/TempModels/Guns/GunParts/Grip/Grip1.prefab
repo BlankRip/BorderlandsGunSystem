@@ -145,9 +145,6 @@ MonoBehaviour:
   - statType: 3
     minStatValue: 5
     maxStatValue: 10
-  - statType: 0
-    minStatValue: 5
-    maxStatValue: 10
 --- !u!114 &-2082956062983826242
 MonoBehaviour:
   m_ObjectHideFlags: 0
