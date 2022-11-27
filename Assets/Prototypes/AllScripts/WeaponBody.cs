@@ -19,6 +19,7 @@ public class WeaponBody : WeaponParams
 
     public void Initialize(WeaponParams barrel, WeaponParams scope, WeaponParams magazine, WeaponParams grip, WeaponParams stock)
     {
+        weaponParts.Add(this);
         weaponParts.Add(barrel);
         weaponParts.Add(scope);
         weaponParts.Add(magazine);
@@ -54,6 +55,15 @@ public class WeaponBody : WeaponParams
 
     }
 
+    void OutlineSetter()
+    {
+        foreach(WeaponParams weaponPart in weaponParts)
+        {
+            Outline outlineWeaponPart = weaponPart.GetComponent<Outline>();
+            outlineWeaponPart.OutlineColor = Color.yellow;
+        }
+    }
+
 
     void DetermineRarity()
     {
@@ -62,7 +72,9 @@ public class WeaponBody : WeaponParams
         averageRarity = Mathf.Clamp(averageRarity, 0, weaponParts.Count);
         rarityLevel = (RarityLevel)averageRarity;                 // setting average rarity from int to RarityLevel which is enum
 
-        Debug.Log(rarityLevel);
+        OutlineSetter();
+
+        //Debug.Log(rarityLevel);
     }
 
 
