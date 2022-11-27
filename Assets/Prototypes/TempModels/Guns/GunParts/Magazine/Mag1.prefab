@@ -143,6 +143,7 @@ MonoBehaviour:
   - statType: 2
     minStatValue: 30
     maxStatValue: 40
+  rarityLevel: 4
 --- !u!1 &1406539823762082197
 GameObject:
   m_ObjectHideFlags: 0

@@ -145,6 +145,7 @@ MonoBehaviour:
   - statType: 3
     minStatValue: 12
     maxStatValue: 15
+  rarityLevel: 4
 --- !u!114 &-7475180569998316597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rawStats: []
+  rarityLevel: 0
 --- !u!1 &8753304882833181789
 GameObject:
   m_ObjectHideFlags: 0

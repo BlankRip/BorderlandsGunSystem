@@ -272,3 +272,4 @@ MonoBehaviour:
   - statType: 1
     minStatValue: 5
     maxStatValue: 10
+  rarityLevel: 4

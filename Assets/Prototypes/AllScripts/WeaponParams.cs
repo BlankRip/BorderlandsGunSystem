@@ -17,6 +17,16 @@ public class WeaponParams : MonoBehaviour
         ReloadSpeed
     }
 
+    public enum RarityLevel
+    {
+        Common = 0,
+        Uncommon = 1,
+        Rare = 2,
+        Epic = 3,
+        Legendary = 4
+    }
+
+
     [System.Serializable]
     public class WeaponStatPair
     {
@@ -31,6 +41,8 @@ public class WeaponParams : MonoBehaviour
 	public List<WeaponStatPair> rawStats;
     public Dictionary<WeaponStatType, float> stats = new Dictionary<WeaponStatType , float>();
 
+    public RarityLevel rarityLevel;
+
 
     private void Awake()
     {
@@ -38,7 +50,6 @@ public class WeaponParams : MonoBehaviour
         {
             float chosenValue = Random.Range(statPair.minStatValue, statPair.maxStatValue);
             stats.Add(statPair.statType, chosenValue);
-            //Debug.Log(chosenValue);
 
         }
     }

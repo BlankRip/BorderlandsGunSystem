@@ -15,6 +15,8 @@ public class WeaponBody : WeaponParams
     List<WeaponParams> weaponParts = new List<WeaponParams>();
     public Dictionary<WeaponStatType, float> weaponStats = new Dictionary<WeaponStatType, float>();
 
+    int rawRarity = 0;
+
     public void Initialize(WeaponParams barrel, WeaponParams scope, WeaponParams magazine, WeaponParams grip, WeaponParams stock)
     {
         weaponParts.Add(barrel);
@@ -24,6 +26,7 @@ public class WeaponBody : WeaponParams
         weaponParts.Add(stock);
 
         CalculateStats();
+        DetermineRarity();
 
     }
 
@@ -33,6 +36,10 @@ public class WeaponBody : WeaponParams
 
         foreach(WeaponParams part in weaponParts)
 		{                                                                                // going thru all statistics of all weapon parts
+
+            rawRarity += (int)part.rarityLevel;
+
+
 			foreach (KeyValuePair<WeaponStatType, float> statType in part.stats)         //for each weapon part, looping thru all statistics available in the dictionary
             {
 
@@ -45,6 +52,17 @@ public class WeaponBody : WeaponParams
 
         }
 
+    }
+
+
+    void DetermineRarity()
+    {
+
+        int averageRarity = rawRarity / weaponParts.Count;         // taking out average Rarity
+        averageRarity = Mathf.Clamp(averageRarity, 0, weaponParts.Count);
+        rarityLevel = (RarityLevel)averageRarity;                 // setting average rarity from int to RarityLevel which is enum
+
+        Debug.Log(rarityLevel);
     }
 
 
