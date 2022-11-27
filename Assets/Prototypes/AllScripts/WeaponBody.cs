@@ -36,23 +36,14 @@ public class WeaponBody : WeaponParams
         // going thru list of all weaponParts
 
         foreach(WeaponParams part in weaponParts)
-		{                                                                                // going thru all statistics of all weapon parts
-
+		{                                                                                
             rawRarity += (int)part.rarityLevel;
 
-
-			foreach (KeyValuePair<WeaponStatType, float> statType in part.stats)         //for each weapon part, looping thru all statistics available in the dictionary
+			foreach (KeyValuePair<WeaponStatType, float> statType in part.stats)         
             {
-
-                weaponStats.Add(statType.Key, statType.Value);                          //saving them in a dictionary
-
-                //Debug.Log(statType.Key);
-                //Debug.Log(statType.Value);
-
+                weaponStats.Add(statType.Key, statType.Value);                         
             }
-
         }
-
     }
 
     void OutlineSetter()
@@ -68,14 +59,11 @@ public class WeaponBody : WeaponParams
     void DetermineRarity()
     {
 
-        int averageRarity = rawRarity / weaponParts.Count;         // taking out average Rarity
+        int averageRarity = rawRarity / weaponParts.Count;         
         averageRarity = Mathf.Clamp(averageRarity, 0, weaponParts.Count);
-        rarityLevel = (RarityLevel)averageRarity;                 // setting average rarity from int to RarityLevel which is enum
+        rarityLevel = (RarityLevel)averageRarity;                 
 
         OutlineSetter();
-
         //Debug.Log(rarityLevel);
     }
-
-
 }

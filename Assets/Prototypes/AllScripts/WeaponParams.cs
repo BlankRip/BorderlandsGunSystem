@@ -50,12 +50,6 @@ public class WeaponParams : MonoBehaviour
         {
             float chosenValue = Random.Range(statPair.minStatValue, statPair.maxStatValue);
             stats.Add(statPair.statType, chosenValue);
-
         }
     }
-
-
-
-
-
 }
