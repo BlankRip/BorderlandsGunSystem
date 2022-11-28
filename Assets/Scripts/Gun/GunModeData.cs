@@ -7,7 +7,7 @@ namespace Gameplay.Guns {
     public class GunModeData
     {
         public FiringMode FireMode;
-        public ElementType Element;
+        public ElementData ElementData;
         public GameObject BulletObj_GO;
         public string ModeDisplayName_S;
         public float RecoilAmount_F;
@@ -17,7 +17,7 @@ namespace Gameplay.Guns {
 
         public GunModeData() {
             FireMode = FiringMode.SemiAuto;
-            Element = ElementType.Nada;
+            ElementData = new ElementData();
             BulletObj_GO = null;
             ModeDisplayName_S = "Not Entered";
             RecoilAmount_F = 0;
@@ -28,11 +28,26 @@ namespace Gameplay.Guns {
 
         public void CopyStats(GunModeData _copyFrom) {
             this.FireMode = _copyFrom.FireMode;
-            this.Element = _copyFrom.Element;
+            this.ElementData = _copyFrom.ElementData;
             this.BulletObj_GO = _copyFrom.BulletObj_GO;
             this.RecoilAmount_F = _copyFrom.RecoilAmount_F;
             this.GapBtwShots_F = _copyFrom.GapBtwShots_F;
             this.SpreadAmount_F = _copyFrom.SpreadAmount_F;
+        }
+    }
+
+    [System.Serializable]
+    public class ElementData
+    {
+        public ElementType Element;
+        public int ElementPower;
+        [Range(0, 100.0f)]
+        public float TriggerChance;
+
+        public ElementData() {
+            Element = ElementType.Nada;
+            ElementPower = 0;
+            TriggerChance = 0;
         }
     }
 }

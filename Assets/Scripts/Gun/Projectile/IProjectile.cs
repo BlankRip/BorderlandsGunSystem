@@ -7,6 +7,6 @@ namespace Gameplay.Guns.Projectile {
     {
         void Initilize();
         void SetDamage(float _damage);
-        void SetElement(ElementType _elementType, int _elementPower, float _triggerChance);
+        void SetElement(ElementData _elementData);
     }
 }

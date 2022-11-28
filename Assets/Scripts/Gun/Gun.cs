@@ -68,7 +68,7 @@ namespace Gameplay.Guns {
 
             if(playerHud != null && playerHud.gunHud != null) {
                 playerHud.gunHud.SetGunIcon(gunType);
-                playerHud.gunHud.SetElementIcon(currentModeData.Element);
+                playerHud.gunHud.SetElementIcon(currentModeData.ElementData.Element);
 
                 playerHud.gunHud.SetGunModeText(currentModeData.ModeDisplayName_S);
 
@@ -184,7 +184,7 @@ namespace Gameplay.Guns {
             currentGunMode = (currentGunMode == modeA) ? modeB : modeA;
             currentModeData = currentGunMode.GetNormalData();
 
-            playerHud.gunHud.SetElementIcon(currentModeData.Element);
+            playerHud.gunHud.SetElementIcon(currentModeData.ElementData.Element);
             playerHud.gunHud.SetGunModeText(currentModeData.ModeDisplayName_S);
             playerHud.gunHud.SetADSSprite(currentGunMode.GetAdsSprite());
         }

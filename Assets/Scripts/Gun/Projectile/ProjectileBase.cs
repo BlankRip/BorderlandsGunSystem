@@ -6,9 +6,7 @@ namespace Gameplay.Guns.Projectile {
     public class ProjectileBase : MonoBehaviour, IProjectile
     {
         protected float damage;
-        protected ElementType element;
-        protected int elementPower = 0;
-        protected float triggerChance;
+        protected ElementData elementData;
 
         public virtual void Initilize() { }
 
@@ -16,10 +14,8 @@ namespace Gameplay.Guns.Projectile {
             damage = _damage;
         }
 
-        public void SetElement(ElementType _elementType, int _elementPower, float _triggerChance) {
-            element = _elementType;
-            elementPower = _elementPower;
-            triggerChance = _triggerChance;
+        public void SetElement(ElementData _elementData) {
+            elementData = _elementData;
         }
     }
 }

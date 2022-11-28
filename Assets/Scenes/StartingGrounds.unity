@@ -938,6 +938,10 @@ MonoBehaviour:
     baseAmmo: 30
     maxAmmo: 150
     currentAmmo: 0
+  assaultRifle:
+    baseAmmo: 30
+    maxAmmo: 150
+    currentAmmo: 0
   smgAmmo:
     baseAmmo: 56
     maxAmmo: 300
@@ -1074,7 +1078,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normal:
     FireMode: 0
-    Element: 4
+    ElementData:
+      Element: 4
+      ElementPower: 50
+      TriggerChance: 20
     BulletObj_GO: {fileID: 0}
     ModeDisplayName_S: Radiation Burst
     RecoilAmount_F: 0
@@ -1085,7 +1092,10 @@ MonoBehaviour:
   adsSprite: {fileID: 21300000, guid: f1cb9699716f75d4da0f1dc4b3bf5706, type: 3}
   ads:
     FireMode: 1
-    Element: 0
+    ElementData:
+      Element: 0
+      ElementPower: 0
+      TriggerChance: 0
     BulletObj_GO: {fileID: 0}
     ModeDisplayName_S: Not Entered
     RecoilAmount_F: 0
@@ -1106,7 +1116,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normal:
     FireMode: 1
-    Element: 0
+    ElementData:
+      Element: 0
+      ElementPower: 0
+      TriggerChance: 0
     BulletObj_GO: {fileID: 0}
     ModeDisplayName_S: Auto
     RecoilAmount_F: 0
@@ -1117,7 +1130,10 @@ MonoBehaviour:
   adsSprite: {fileID: 21300000, guid: 57524ec28f991c946b245000242838f6, type: 3}
   ads:
     FireMode: 0
-    Element: 4
+    ElementData:
+      Element: 0
+      ElementPower: 0
+      TriggerChance: 0
     BulletObj_GO: {fileID: 0}
     ModeDisplayName_S: Radiation Burst
     RecoilAmount_F: 0
