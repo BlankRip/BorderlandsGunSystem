@@ -10,7 +10,7 @@ namespace Gameplay.UI {
         [SerializeField] Slider hpSlider, sheildSlider;
 
         private void Awake() {
-            if(playerHud)
+            if(playerHud != null)
                 playerHud.healthHud = this;
         }
 

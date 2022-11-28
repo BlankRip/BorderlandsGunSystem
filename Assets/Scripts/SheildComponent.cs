@@ -29,20 +29,20 @@ namespace Gameplay.Components {
         private float recoveryTimer;
 
         private void Start() {
-            if(playerHud)
+            if(playerHud != null)
                 uiHandler = playerHud.healthHud;
             else
                 uiHandler = GetComponent<IHealthHud>();
             if(uiHandler != null)
                 uiHandler.SetMaxSheild(maxSheild);
             else
-                Debug.LogError("Health Hud Not attached to this object");
+                Debug.LogError("Health Hud Not attached to this object", this.gameObject);
 
             Sheild = maxSheild;
             rechargeDelayTimer = 0.0f;
             recoveryTimer = 1.0f;
 
-            HelathComponent healthComp = GetComponent<HelathComponent>();
+            HealthComponent healthComp = GetComponent<HealthComponent>();
             if(healthComp)
                 healthComp.SetSheild(this);
         }

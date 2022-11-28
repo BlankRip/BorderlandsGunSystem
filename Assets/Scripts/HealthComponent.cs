@@ -6,7 +6,7 @@ using Gameplay.UI;
 
 namespace Gameplay.Components
 {
-    public class HelathComponent : MonoBehaviour
+    public class HealthComponent : MonoBehaviour
     {
         [Tooltip("Leave empty if not for player & attach health hud to this object")]
         [SerializeField] ScriptablePlayerHud playerHud;
@@ -29,18 +29,22 @@ namespace Gameplay.Components
 
 
         private void Start() {
-            if(playerHud)
+            appliedElement = new ElementData();
+            appliedElement.Element = ElementType.Nada;
+            dmgTimer = 0;
+            elementTime = 0;
+            Health = maxHealth;
+
+            if(playerHud != null)
                 uiHandler = playerHud.healthHud;
             else
                 uiHandler = GetComponent<IHealthHud>();
-            if(uiHandler != null)
+            if(uiHandler != null) {
                 uiHandler.SetMaxHealth(maxHealth);
-            else
-                Debug.LogError("Health Hud Not attached to this object");
+                uiHandler.SetHealthValue(Health);
+            } else
+                Debug.LogError("Health Hud Not attached to this object", this.gameObject);
             
-            Health = maxHealth;
-            dmgTimer = 0;
-            elementTime = 0;
         }
 
         private void Update() {
