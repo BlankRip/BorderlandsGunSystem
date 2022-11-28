@@ -36,6 +36,10 @@ namespace Gameplay.Components
             }
         }
 
+        public void SetSheild(SheildComponent _sheild) {
+            sheild = _sheild;
+        }
+
         public void Heal(float _healAmount) {
             if(health == maxHealth)
                 return;
