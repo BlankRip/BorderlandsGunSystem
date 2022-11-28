@@ -101,7 +101,6 @@ namespace Gameplay.Guns {
         public void EnterADS() {
             currentModeData = currentGunMode.GetADSData();
             gunState = GunState.InADS;
-            Debug.Log("ADS ENTERED");
             //move into ads view
             playerHud.gunHud.ADSOverlay(true);
         }
@@ -111,7 +110,6 @@ namespace Gameplay.Guns {
                 return;
             currentModeData = currentGunMode.GetNormalData();
             gunState = GunState.Idel;
-            Debug.Log("ADS EXITED");
             //move into ads view
             playerHud.gunHud.ADSOverlay(false);
         }
@@ -131,7 +129,6 @@ namespace Gameplay.Guns {
         protected virtual void Fire() {
             if(CurrentInClip > 0) {
                 CurrentInClip--;
-                Debug.Log("SHOT FIRED");
             } else {
                 StartReload();
             }
@@ -179,7 +176,6 @@ namespace Gameplay.Guns {
         }
 
         private void SwitchMode() {
-            Debug.Log("GUN MODE SWITCHED");
             currentGunMode.SwithcModeEvent();
             currentGunMode = (currentGunMode == modeA) ? modeB : modeA;
             currentModeData = currentGunMode.GetNormalData();
