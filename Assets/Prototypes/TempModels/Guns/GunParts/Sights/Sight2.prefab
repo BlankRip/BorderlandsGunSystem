@@ -138,6 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5789575555889413662}
   - component: {fileID: 6463188921312246222}
+  - component: {fileID: 7156338359046652858}
   m_Layer: 0
   m_Name: Sight2
   m_TagString: Untagged
@@ -173,9 +174,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rawStats:
-  - statType: 3
-    minStatValue: 1
-    maxStatValue: 4
+  - statType: 1
+    minStatValue: 5
+    maxStatValue: 10
+  rarityLevel: 0
+--- !u!114 &7156338359046652858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4884460992650738811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &5643364303030799680
 GameObject:
   m_ObjectHideFlags: 0

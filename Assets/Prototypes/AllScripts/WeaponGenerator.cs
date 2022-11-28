@@ -18,13 +18,7 @@ public class WeaponGenerator : MonoBehaviour
 
     GameObject prevWeapon;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -50,14 +44,10 @@ public class WeaponGenerator : MonoBehaviour
             Destroy(prevWeapon);
         }
 
-		//getting random body from a list
-		//instantiating the random body
 		GameObject randBody = GetRandomParts(bodyParts);
-        //Instantiate(randBody, Vector3.zero, Quaternion.identity);
 
-        //assigning body instatiate to a varialble and getting reference to WeaponBody
         GameObject instantiateBody = Instantiate(randBody, Vector3.zero, Quaternion.identity);
-        WeaponBody weaponBody = instantiateBody.GetComponent<WeaponBody>();                      //to get sockets from WeaponBody
+        WeaponBody weaponBody = instantiateBody.GetComponent<WeaponBody>();                      
 
         WeaponParams barrel = SpawnWeaponPart(barrelParts, weaponBody.barrelSocket);
 		WeaponParams magazine = SpawnWeaponPart(magazineParts, weaponBody.magazineSocket);
@@ -80,7 +70,7 @@ public class WeaponGenerator : MonoBehaviour
         GameObject instantiatePart = Instantiate(randomPart, socket.transform.position, socket.transform.rotation);
         instantiatePart.transform.parent = socket;
 
-        return instantiatePart.GetComponent<WeaponParams>();                                //making the instatntiatePart return WeaponParams
+        return instantiatePart.GetComponent<WeaponParams>();                                
 
     }
 
