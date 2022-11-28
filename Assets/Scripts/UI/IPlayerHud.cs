@@ -20,6 +20,9 @@ namespace Gameplay.UI {
 
     public interface IHealthHud
     {
-
+        void SetMaxHealth(float _maxHp);
+        void SetMaxSheild(float _maxSheild);
+        void SetHealthValue(float _value);
+        void SetSheildValue(float _value);
     }
 }

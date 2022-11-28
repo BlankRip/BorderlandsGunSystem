@@ -2,21 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Gameplay.Guns;
+using Gameplay.UI;
 
 namespace Gameplay.Components
 {
     public class HelathComponent : MonoBehaviour
     {
-        [SerializeField] float maxHealth;
+        [Tooltip("Leave empty if not for player & attach health hud to this object")]
+        [SerializeField] ScriptablePlayerHud playerHud;
+        [SerializeField] float maxHealth = 100.0f;
         [SerializeField] SheildComponent sheild;
 
+        private IHealthHud uiHandler;
         private float health;
+        private float Health {
+            get {return health;}
+            set {
+                health = value;
+                if(uiHandler != null)
+                    uiHandler.SetHealthValue(health);
+            }
+        }
         private ElementData appliedElement;
         private int elementTime;
         private float dmgTimer;
 
+
         private void Start() {
-            health = maxHealth;
+            if(playerHud)
+                uiHandler = playerHud.healthHud;
+            else
+                uiHandler = GetComponent<IHealthHud>();
+            if(uiHandler != null)
+                uiHandler.SetMaxHealth(maxHealth);
+            else
+                Debug.LogError("Health Hud Not attached to this object");
+            
+            Health = maxHealth;
             dmgTimer = 0;
             elementTime = 0;
         }
@@ -41,11 +63,11 @@ namespace Gameplay.Components
         }
 
         public void Heal(float _healAmount) {
-            if(health == maxHealth)
+            if(Health == maxHealth)
                 return;
-            health += _healAmount;
-            if(health > maxHealth)
-                health = maxHealth;
+            Health += _healAmount;
+            if(Health > maxHealth)
+                Health = maxHealth;
         }
 
         public void TakeDamage(float _dmgAmount, ElementData _elemData) {
@@ -68,7 +90,7 @@ namespace Gameplay.Components
                     return;
                 _dmgAmount = sheild.GetDmgRamaining();
             }
-            health -= _dmgAmount;
+            Health -= _dmgAmount;
         }
     }
 }
