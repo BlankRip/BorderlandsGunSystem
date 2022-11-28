@@ -26,7 +26,6 @@ namespace Gameplay.Components {
         private bool fullDmgAbsorbed;
         private float damageRemaining;
         private float rechargeDelayTimer;
-        private float recoveryTimer;
 
         private void Start() {
             if(playerHud != null)
@@ -40,7 +39,6 @@ namespace Gameplay.Components {
 
             Sheild = maxSheild;
             rechargeDelayTimer = 0.0f;
-            recoveryTimer = 1.0f;
 
             HealthComponent healthComp = GetComponent<HealthComponent>();
             if(healthComp)
@@ -53,15 +51,9 @@ namespace Gameplay.Components {
             
             rechargeDelayTimer += Time.deltaTime;
             if(rechargeDelayTimer >= rechargeDelay) {
-                recoveryTimer += Time.deltaTime;
-                if(recoveryTimer > 1.0f) {
-                    Sheild += recoveryRate;
-                    recoveryTimer = 0.0f;
-                    if(Sheild >= maxSheild) {
-                        recoveryTimer = 1.0f;
-                        Sheild = maxSheild;
-                    }
-                }
+                Sheild += recoveryRate * Time.deltaTime;
+                if(Sheild >= maxSheild)
+                    Sheild = maxSheild;
             }
         }
 

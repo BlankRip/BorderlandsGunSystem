@@ -50,8 +50,8 @@ namespace Gameplay.Components
         private void Update() {
             if(appliedElement.Element != ElementType.Nada) {
                 dmgTimer += Time.deltaTime;
+                TakeDamage(appliedElement.ElementPower * Time.deltaTime);
                 if(dmgTimer >= 1.0f) {
-                    TakeDamage(appliedElement.ElementPower);
                     dmgTimer = 0;
                     elementTime--;
                     if(elementTime <= 0) {
