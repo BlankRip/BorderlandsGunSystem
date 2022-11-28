@@ -49,5 +49,11 @@ namespace Gameplay.Guns {
             ElementPower = 0;
             TriggerChance = 0;
         }
+
+        public ElementData(ElementData other) {
+            this.Element = other.Element;
+            this.ElementPower = other.ElementPower;
+            this.TriggerChance = other.TriggerChance;
+        }
     }
 }

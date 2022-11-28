@@ -77,11 +77,12 @@ namespace Gameplay.Components
         public void TakeDamage(float _dmgAmount, ElementData _elemData) {
             if(_elemData.Element != ElementType.Nada) {
                 float _randTrigger = Random.Range(0.0f, 100.0f);
+                    Debug.Log("HERE");
                 if(_randTrigger < _elemData.TriggerChance) {
                     elementTime++;
                     if(appliedElement.Element == ElementType.Nada)
                         dmgTimer = 0;
-                    appliedElement = _elemData;
+                    appliedElement = new ElementData(_elemData);
                 }
             }
             TakeDamage(_dmgAmount);
@@ -95,6 +96,8 @@ namespace Gameplay.Components
                 _dmgAmount = sheild.GetDmgRamaining();
             }
             Health -= _dmgAmount;
+            if(Health < 0)
+                Health = 0;
         }
     }
 }
