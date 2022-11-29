@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Gameplay.Guns;
 using Gameplay.UI;
 
 namespace Gameplay.Components
 {
-    public class HealthComponent : MonoBehaviour
+    public class HealthComponent : MonoBehaviour, IDamagable
     {
         [Tooltip("Leave empty if not for player & attach health hud to this object")]
         [SerializeField] ScriptablePlayerHud playerHud;
@@ -77,7 +76,6 @@ namespace Gameplay.Components
         public void TakeDamage(float _dmgAmount, ElementData _elemData) {
             if(_elemData.Element != ElementType.Nada) {
                 float _randTrigger = Random.Range(0.0f, 100.0f);
-                    Debug.Log("HERE");
                 if(_randTrigger < _elemData.TriggerChance) {
                     elementTime++;
                     if(appliedElement.Element == ElementType.Nada)

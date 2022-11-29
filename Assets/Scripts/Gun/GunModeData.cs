@@ -35,7 +35,9 @@ namespace Gameplay.Guns {
             this.SpreadAmount_F = _copyFrom.SpreadAmount_F;
         }
     }
+}
 
+namespace Gameplay {
     [System.Serializable]
     public class ElementData
     {
