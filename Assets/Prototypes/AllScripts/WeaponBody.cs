@@ -17,6 +17,8 @@ public class WeaponBody : WeaponParams
 
     int rawRarity = 0;
 
+    public RarityScriptableObject raritySO;
+
     public void Initialize(WeaponParams barrel, WeaponParams scope, WeaponParams magazine, WeaponParams grip, WeaponParams stock)
     {
         weaponParts.Add(this);
@@ -51,7 +53,7 @@ public class WeaponBody : WeaponParams
         foreach(WeaponParams weaponPart in weaponParts)
         {
             Outline outlineWeaponPart = weaponPart.GetComponent<Outline>();
-            outlineWeaponPart.OutlineColor = Color.yellow;
+            outlineWeaponPart.OutlineColor = raritySO.rarityColors[(int) rarityLevel];
         }
     }
 
