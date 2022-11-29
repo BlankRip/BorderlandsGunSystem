@@ -172,6 +172,7 @@ MonoBehaviour:
   gripSocket: {fileID: 2810444524529187227}
   sightsSocket: {fileID: 732431308667158345}
   stockSocket: {fileID: 7175003890879050014}
+  raritySO: {fileID: 11400000, guid: c2cd67a713d44974e984f2edd99407a6, type: 2}
 --- !u!114 &-2936436811912814977
 MonoBehaviour:
   m_ObjectHideFlags: 0
