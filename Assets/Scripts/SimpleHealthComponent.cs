@@ -22,22 +22,5 @@ namespace Gameplay.Components {
                     OnDeath();
             }
         }
-
-        // private void Start() {
-        //     OnDeath += TestOnDeath1;
-        //     OnDeath += TestOnDeath2;
-        //     OnDeath();
-
-        //     OnDeath -= TestOnDeath2;
-        //     OnDeath();
-        // }
-
-        // void TestOnDeath1() {
-        //     Debug.Log("111111111111");
-        // }
-
-        // void TestOnDeath2() {
-        //     Debug.Log("222222222222");
-        // }
     }
 }

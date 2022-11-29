@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Gameplay.UI;
+using Gameplay.Guns.Projectile;
 
 namespace Gameplay.Guns {
     public class Gun : MonoBehaviour
@@ -9,6 +10,8 @@ namespace Gameplay.Guns {
         [SerializeField] ScriptablePlayerHud playerHud;
         [SerializeField] GunType gunType;
         [SerializeField] protected int clipSize = 7;
+        [SerializeField] float weaponDamage = 20.0f;
+        [SerializeField] Transform muzzlePosition;
         
         private int currentInClip;
         protected int CurrentInClip {
@@ -129,6 +132,10 @@ namespace Gameplay.Guns {
         protected virtual void Fire() {
             if(CurrentInClip > 0) {
                 CurrentInClip--;
+
+                IProjectile spawned = Instantiate(currentModeData.BulletObj_GO, muzzlePosition.position, muzzlePosition.rotation).GetComponent<IProjectile>();
+                spawned.SetDamage(weaponDamage);
+                spawned.SetElement(currentModeData.ElementData);
             } else {
                 StartReload();
             }
