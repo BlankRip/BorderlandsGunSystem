@@ -29,7 +29,7 @@ public class WeaponGenerator : MonoBehaviour
 
     void StartUponPress()
     {
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.P))
 		{
 			GenerateWeapon();
 		}
