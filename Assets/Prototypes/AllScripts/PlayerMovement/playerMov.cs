@@ -8,7 +8,9 @@ public class playerMov : MonoBehaviour
 {
 	[Header("Movement")]
 
-	public float movementSpeed;
+	private float movementSpeed;
+	public float walkSpeed;
+	public float sprintSpeed;
 
 	public float groundDrag;
 
@@ -17,10 +19,17 @@ public class playerMov : MonoBehaviour
 	public float airMultiplier;
 	bool readyToJump = true;
 
+	[Header("Crouch")]
+
+	public float crouchSpeed;
+	public float crouchYScale;
+	private float notCrouchYScale;
+
 	[Header ("Keybinds")]
 
 	public KeyCode jumpKey = KeyCode.Space;
-
+	public KeyCode sprintKey = KeyCode.LeftShift;
+	public KeyCode crouchKey = KeyCode.LeftControl;
 
 
 	[Header("Ground Check")]
@@ -38,10 +47,23 @@ public class playerMov : MonoBehaviour
 
 	Rigidbody rb;
 
+	public MovementStates currentMovementState;
+
+	public enum MovementStates
+	{
+		walking,
+		sprinting,
+		crouching,
+		air
+	}
+
 	private void Start()
 	{
 		rb = GetComponent<Rigidbody>();
 		rb.freezeRotation = true;
+
+		notCrouchYScale = transform.localScale.y;
+
 	}
 
 	private void Update()
@@ -50,6 +72,7 @@ public class playerMov : MonoBehaviour
 
 		groundCheck();
 		SpeedControl();
+		movementStateHandler();
 
 	}
 	private void FixedUpdate()
@@ -72,6 +95,49 @@ public class playerMov : MonoBehaviour
 			Invoke(nameof(resetJump), jumpCooldown);
 		}
 
+		//Crouch
+
+		if(Input.GetKeyDown(crouchKey))
+		{
+			transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+			rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+		}
+		if(Input.GetKeyUp(crouchKey))
+		{
+			transform.localScale = new Vector3(transform.localScale.x, notCrouchYScale, transform.localScale.z);
+		}
+
+	}
+
+
+	private void movementStateHandler()
+	{
+		//if(Input.GetKey(crouchKey) && grounded)
+		//{
+		//	currentMovementState = MovementStates.crouching;
+		//	movementSpeed = crouchSpeed;
+		//	Debug.Log(currentMovementState);
+		//}
+
+		if(grounded && Input.GetKey(sprintKey))
+		{
+			currentMovementState = MovementStates.sprinting;
+			movementSpeed = sprintSpeed;
+		}
+		else if(Input.GetKey(crouchKey) && grounded)
+		{
+			currentMovementState = MovementStates.crouching;
+			movementSpeed = crouchSpeed;
+		}
+		else if(grounded)
+		{
+			currentMovementState = MovementStates.walking;
+			movementSpeed = walkSpeed;
+		}
+		else
+		{
+			currentMovementState = MovementStates.air;
+		}
 	}
 
 
