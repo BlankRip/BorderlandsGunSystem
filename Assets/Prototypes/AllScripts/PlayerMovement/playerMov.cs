@@ -29,6 +29,7 @@ public class playerMov : MonoBehaviour
 
 	public float maxSlopeAngle;
 	public RaycastHit slopeHit;
+	private bool exitSlope;
 
 	[Header ("Keybinds")]
 
@@ -144,7 +145,7 @@ public class playerMov : MonoBehaviour
 
 		//On slope movement
 
-		if(OnSlope())
+		if(OnSlope() && !exitSlope)
 		{
 			rb.AddForce(getSlopeMoveDirection() * movementSpeed * 20f, ForceMode.Force);
 
@@ -185,20 +186,33 @@ public class playerMov : MonoBehaviour
 
 	void SpeedControl()
 	{
+		//speed control on slope  -> makes you unable to jump, so use exit slope bool in playerJump fucntion
 
-		Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-
-		if(flatVel.magnitude > movementSpeed)
+		if (OnSlope() && !exitSlope)
 		{
-			Vector3 limitedVel = flatVel.normalized * movementSpeed;
-			rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+			if (rb.velocity.magnitude > movementSpeed)
+			{
+				rb.velocity = rb.velocity.normalized * movementSpeed;
+			}
+		}
+		else
+		{
+			Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+
+			if (flatVel.magnitude > movementSpeed)
+			{
+				Vector3 limitedVel = flatVel.normalized * movementSpeed;
+				rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+			}
 		}
 
 	}
 
 	void playerJump()
 	{
+		exitSlope = true;
+
 		rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
 		rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
@@ -206,6 +220,7 @@ public class playerMov : MonoBehaviour
 
 	void resetJump()
 	{
+		exitSlope = false;
 		readyToJump = true;
 	}
 
