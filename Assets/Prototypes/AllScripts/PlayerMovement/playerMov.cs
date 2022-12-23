@@ -15,7 +15,7 @@ public class playerMov : MonoBehaviour
 	public float jumpForce;
 	public float jumpCooldown;
 	public float airMultiplier;
-	bool readyToJump;
+	bool readyToJump = true;
 
 	[Header ("Keybinds")]
 
@@ -108,7 +108,7 @@ public class playerMov : MonoBehaviour
 	void SpeedControl()
 	{
 
-		Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.y);
+		Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
 
 		if(flatVel.magnitude > movementSpeed)
