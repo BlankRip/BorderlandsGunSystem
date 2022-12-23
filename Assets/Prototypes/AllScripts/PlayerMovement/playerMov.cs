@@ -146,7 +146,13 @@ public class playerMov : MonoBehaviour
 
 		if(OnSlope())
 		{
-			rb.AddForce(getSlopeMoveDirection() * movementSpeed * 2f, ForceMode.Force);
+			rb.AddForce(getSlopeMoveDirection() * movementSpeed * 20f, ForceMode.Force);
+
+			// To remove the wierd upward force when going up a slope
+			if(rb.velocity.y > 0)
+			{
+				rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+			}
 		}
 
 		if(grounded)
