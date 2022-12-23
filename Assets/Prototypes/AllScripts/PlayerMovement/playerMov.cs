@@ -25,6 +25,11 @@ public class playerMov : MonoBehaviour
 	public float crouchYScale;
 	private float notCrouchYScale;
 
+	[Header("Slope movement")]
+
+	public float maxSlopeAngle;
+	public RaycastHit slopeHit;
+
 	[Header ("Keybinds")]
 
 	public KeyCode jumpKey = KeyCode.Space;
@@ -96,7 +101,6 @@ public class playerMov : MonoBehaviour
 		}
 
 		//Crouch
-
 		if(Input.GetKeyDown(crouchKey))
 		{
 			transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
@@ -112,13 +116,6 @@ public class playerMov : MonoBehaviour
 
 	private void movementStateHandler()
 	{
-		//if(Input.GetKey(crouchKey) && grounded)
-		//{
-		//	currentMovementState = MovementStates.crouching;
-		//	movementSpeed = crouchSpeed;
-		//	Debug.Log(currentMovementState);
-		//}
-
 		if(grounded && Input.GetKey(sprintKey))
 		{
 			currentMovementState = MovementStates.sprinting;
@@ -145,6 +142,13 @@ public class playerMov : MonoBehaviour
 	{
 		movementDirection = (orientation.forward * verticalInput) + (orientation.right * horizontalInput);
 
+		//On slope movement
+
+		if(OnSlope())
+		{
+			rb.AddForce(getSlopeMoveDirection() * movementSpeed * 2f, ForceMode.Force);
+		}
+
 		if(grounded)
 		{
 			rb.AddForce(movementDirection.normalized * movementSpeed * 10f, ForceMode.Force);
@@ -153,6 +157,8 @@ public class playerMov : MonoBehaviour
 		{
 			rb.AddForce(movementDirection.normalized * movementSpeed * 10f * airMultiplier, ForceMode.Force);
 		}
+
+		rb.useGravity = !OnSlope();
 		
 
 	}
@@ -195,6 +201,24 @@ public class playerMov : MonoBehaviour
 	void resetJump()
 	{
 		readyToJump = true;
+	}
+
+	private bool OnSlope()
+	{
+		if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
+		{
+			float steepAngle = Vector3.Angle(Vector3.up, slopeHit.normal);
+			return steepAngle < maxSlopeAngle && steepAngle != 0;
+		}
+		return false;
+	}
+
+	//Finding direction relative of slope
+
+	private Vector3 getSlopeMoveDirection()
+	{
+		return Vector3.ProjectOnPlane(movementDirection, slopeHit.normal).normalized;      //ProjectOnPlane: Projects a vector onto a plane defined by a normal orthogonal to the plane
+
 	}
 
 }
