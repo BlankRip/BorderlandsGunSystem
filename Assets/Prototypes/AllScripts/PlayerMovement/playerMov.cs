@@ -11,13 +11,12 @@ public class playerMov : MonoBehaviour
 	private float movementSpeed;
 	public float walkSpeed;
 	public float sprintSpeed;
-
 	public float groundDrag;
-
 	public float jumpForce;
 	public float jumpCooldown;
 	public float airMultiplier;
 	bool readyToJump = true;
+	public float wallRunSpeed;
 
 	[Header("Crouch")]
 
@@ -60,8 +59,11 @@ public class playerMov : MonoBehaviour
 		walking,
 		sprinting,
 		crouching,
+		wallRunning,
 		air
 	}
+
+	public bool wallrunning;
 
 	private void Start()
 	{
@@ -117,6 +119,12 @@ public class playerMov : MonoBehaviour
 
 	private void movementStateHandler()
 	{
+		if(wallrunning)
+		{
+			currentMovementState = MovementStates.wallRunning;
+			movementSpeed = wallRunSpeed;                                   //change later when slide implemented
+		}
+
 		if(grounded && Input.GetKey(sprintKey))
 		{
 			currentMovementState = MovementStates.sprinting;
