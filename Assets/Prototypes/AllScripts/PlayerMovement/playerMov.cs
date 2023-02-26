@@ -42,6 +42,10 @@ public class playerMov : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody>();
 		rb.freezeRotation = true;
+
+		horizontalInput = 0.0f;
+		verticalInput = 0.0f;
+		readyToJump = true;
 	}
 
 	private void Update()
@@ -108,7 +112,7 @@ public class playerMov : MonoBehaviour
 	void SpeedControl()
 	{
 
-		Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.y);
+		Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
 
 		if(flatVel.magnitude > movementSpeed)

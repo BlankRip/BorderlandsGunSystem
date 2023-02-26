@@ -83,7 +83,25 @@ namespace Gameplay.Guns {
                 Debug.LogError("Gun Hud was not set up");
         }
 
+        [SerializeField]
+        LayerMask tempLayerMask;
+        [SerializeField]
+        Transform tempTransform;
+
         private void Update() {
+            Ray ray =  Camera.main.ScreenPointToRay(new Vector2(Screen.width/2, Screen.height/2));
+            RaycastHit hitResult;
+            if(Physics.Raycast(ray, out hitResult, 1000.0f))
+            {
+                tempTransform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                tempTransform.position = hitResult.point;
+            }
+            else
+            {
+                tempTransform.localScale = new Vector3(15f, 15f, 15f);
+                tempTransform.position = Camera.main.transform.position + (ray.direction * 1000.0f);
+            }
+
             if(gunState == GunState.Reloading)
                 return;
             
@@ -132,7 +150,6 @@ namespace Gameplay.Guns {
         protected virtual void Fire() {
             if(CurrentInClip > 0) {
                 CurrentInClip--;
-
                 IProjectile spawned = Instantiate(currentModeData.BulletObj_GO, muzzlePosition.position, muzzlePosition.rotation).GetComponent<IProjectile>();
                 spawned.SetDamage(weaponDamage);
                 spawned.SetElement(currentModeData.ElementData);
