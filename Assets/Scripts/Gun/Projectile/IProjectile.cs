@@ -5,8 +5,8 @@ using UnityEngine;
 namespace Gameplay.Guns.Projectile {
     public interface IProjectile
     {
-        void Initilize();
-        void SetDamage(float _damage);
-        void SetElement(ElementData _elementData);
+        void Initilize(Vector3 _targetPos);
+        void Initilize(Vector3 _targetPos, float _damage);
+        void Initilize(Vector3 _targetPos, float _damage, ElementData _elementData);
     }
 }

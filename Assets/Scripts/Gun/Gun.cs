@@ -12,6 +12,12 @@ namespace Gameplay.Guns {
         [SerializeField] protected int clipSize = 7;
         [SerializeField] float weaponDamage = 20.0f;
         [SerializeField] Transform muzzlePosition;
+        [SerializeField] float rayRange = 1000.0f;
+        [SerializeField] LayerMask bulletHitLayers;
+
+        [Space] [Header("Debugging")]
+        [SerializeField] bool debugTargetPoint;
+        [SerializeField] Transform debugTargetPointTransform;
         
         private int currentInClip;
         protected int CurrentInClip {
@@ -39,12 +45,14 @@ namespace Gameplay.Guns {
 
         bool initilizedGun;
 
-        protected void Start() {
+        protected void Start()
+        {
             if(initilizedGun)
                 return;
             
             IGunMode[] _modes = GetComponents<IGunMode>();
-            if(_modes.Length != 2) {
+            if(_modes.Length != 2)
+            {
                 Debug.LogError("There is either less than or more than 2 gun modes attached");
                 return;
             }
@@ -69,7 +77,8 @@ namespace Gameplay.Guns {
             if(currentModeData == null)
                 Start();
 
-            if(playerHud != null && playerHud.gunHud != null) {
+            if(playerHud != null && playerHud.gunHud != null)
+            {
                 playerHud.gunHud.SetGunIcon(gunType);
                 playerHud.gunHud.SetElementIcon(currentModeData.ElementData.Element);
 
@@ -79,38 +88,25 @@ namespace Gameplay.Guns {
                 playerHud.gunHud.SetAvailableAmmoText(ammoSupply.GetAmmoInReserve());
 
                 playerHud.gunHud.SetADSSprite(currentGunMode.GetAdsSprite());
-            } else
+            }
+            else
                 Debug.LogError("Gun Hud was not set up");
         }
 
-        [SerializeField]
-        LayerMask tempLayerMask;
-        [SerializeField]
-        Transform tempTransform;
-
-        private void Update() {
-            Ray ray =  Camera.main.ScreenPointToRay(new Vector2(Screen.width/2, Screen.height/2));
-            RaycastHit hitResult;
-            if(Physics.Raycast(ray, out hitResult, 1000.0f))
-            {
-                tempTransform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-                tempTransform.position = hitResult.point;
-            }
-            else
-            {
-                tempTransform.localScale = new Vector3(15f, 15f, 15f);
-                tempTransform.position = Camera.main.transform.position + (ray.direction * 1000.0f);
-            }
-
+        private void Update()
+        {
             if(gunState == GunState.Reloading)
                 return;
             
             timer += Time.deltaTime;
-            if(timer > currentModeData.GapBtwShots_F) {
-                if(firing) {
+            if(timer > currentModeData.GapBtwShots_F)
+            {
+                if(firing)
+                {
                     Fire();
                     timer = 0;
-                    if(currentModeData.FireMode == FiringMode.SemiAuto) {
+                    if(currentModeData.FireMode == FiringMode.SemiAuto)
+                    {
                         burstTracker++;
                         if(burstTracker >= currentModeData.BulletsPerBurst_I)
                             firing = false;
@@ -119,14 +115,16 @@ namespace Gameplay.Guns {
             }
         }
 
-        public void EnterADS() {
+        public void EnterADS()
+        {
             currentModeData = currentGunMode.GetADSData();
             gunState = GunState.InADS;
             //move into ads view
             playerHud.gunHud.ADSOverlay(true);
         }
 
-        public void ExitADS() {
+        public void ExitADS()
+        {
             if(gunState != GunState.InADS)
                 return;
             currentModeData = currentGunMode.GetNormalData();
@@ -136,33 +134,69 @@ namespace Gameplay.Guns {
         }
 
         public void StartFiring() {
-            if(currentModeData.FireMode == FiringMode.Auto) {
+            if(currentModeData.FireMode == FiringMode.Auto)
+            {
                 firing = true;
-            } else {
-                if(currentModeData.BulletsPerBurst_I > 0) {
+            }
+            else
+            {
+                if(currentModeData.BulletsPerBurst_I > 0)
+                {
                     firing = true;
                     burstTracker = 0;
-                } else
+                } 
+                else
                     Fire();
             }
         }
 
-        protected virtual void Fire() {
-            if(CurrentInClip > 0) {
+        protected virtual void Fire()
+        {
+            if(CurrentInClip > 0)
+            {
                 CurrentInClip--;
                 IProjectile spawned = Instantiate(currentModeData.BulletObj_GO, muzzlePosition.position, muzzlePosition.rotation).GetComponent<IProjectile>();
-                spawned.SetDamage(weaponDamage);
-                spawned.SetElement(currentModeData.ElementData);
-            } else {
+                spawned.Initilize(CaluculateProjectileTarget(), weaponDamage, currentModeData.ElementData);
+            }
+            else
+            {
                 StartReload();
             }
         }
 
-        public void StopFiring() {
+        private Vector3 CaluculateProjectileTarget()
+        {
+            Vector3 targetPos = Vector3.zero;
+            Ray ray =  playerCam.ScreenPointToRay(new Vector2(Screen.width/2, Screen.height/2));
+            RaycastHit hitResult;
+            if(Physics.Raycast(ray, out hitResult, rayRange, bulletHitLayers))
+            {
+                targetPos = hitResult.point;
+                if(debugTargetPoint)
+                {
+                    debugTargetPointTransform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                    debugTargetPointTransform.position = targetPos;
+                }
+            }
+            else
+            {
+                targetPos = playerCam.transform.position + (ray.direction * rayRange);
+                if(debugTargetPoint)
+                {
+                    debugTargetPointTransform.localScale = new Vector3(15f, 15f, 15f);
+                    debugTargetPointTransform.position = targetPos;
+                }
+            }
+            return targetPos;
+        }
+
+        public void StopFiring()
+        {
             firing = false;
         }
 
-        public virtual void StartReload() {
+        public virtual void StartReload()
+        {
             if(CurrentInClip == clipSize || ammoSupply.GetAmmoInReserve() <= 0)
                 return;
             
@@ -173,7 +207,8 @@ namespace Gameplay.Guns {
             Reload();
         }
 
-        private void Reload() {
+        private void Reload()
+        {
             Debug.Log("RELOADED");
             int _amountToAdd = clipSize;
             int _bulletsRequired = clipSize - CurrentInClip;
@@ -192,14 +227,16 @@ namespace Gameplay.Guns {
                 EnterADS();
         }
 
-        public void StartModeSwitch() {
+        public void StartModeSwitch()
+        {
             if(gunState == GunState.InADS)
                 ExitADS();
             //Play switching animation
             SwitchMode();
         }
 
-        private void SwitchMode() {
+        private void SwitchMode()
+        {
             currentGunMode.SwithcModeEvent();
             currentGunMode = (currentGunMode == modeA) ? modeB : modeA;
             currentModeData = currentGunMode.GetNormalData();

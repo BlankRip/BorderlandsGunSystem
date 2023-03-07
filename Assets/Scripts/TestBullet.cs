@@ -8,15 +8,19 @@ namespace Gameplay.Guns.Projectile {
         [SerializeField] float moveSpeed = 20.0f;
         private Rigidbody rb;
 
-        private void Start() {
+        private void Start()
+        {
             rb = GetComponent<Rigidbody>();
         }
 
-        private void Update() {
+        private void Update()
+        {
             rb.MovePosition(transform.position + (transform.forward * moveSpeed * Time.deltaTime));
         }
 
-        private void OnTriggerEnter(Collider other) {
+        private void OnTriggerEnter(Collider other)
+        {
+            Debug.Log($"entered {other.gameObject.name}");
             IDamagable damagableObj = other.GetComponent<IDamagable>();
             if(damagableObj != null)
                 damagableObj.TakeDamage(damage, elementData);

@@ -22,11 +22,13 @@ namespace Gameplay.Player {
         private bool jump;
         private bool grounded;
 
-        private void Start() {
+        private void Start()
+        {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            if(cc == null) {
+            if(cc == null)
+            {
                 cc = GetComponent<CharacterController>();
                 if(cc == null)
                     cc = GetComponentInChildren<CharacterController>();
@@ -38,15 +40,26 @@ namespace Gameplay.Player {
             cachedCam = Camera.main;
             mySupply = GetComponent<AmmoSupply>();
             testGun.Equip(cachedCam, mySupply);
+
+            SetLocalBlackboardData();
         }
 
-        private void Update() {
+        private void SetLocalBlackboardData()
+        {
+            LocalBlackboard.instance.localPlayerScript = this;
+            LocalBlackboard.instance.localPlayerGo = this.gameObject;
+            LocalBlackboard.instance.localAmmoSupply = mySupply;
+        }
+
+        private void Update()
+        {
             grounded = cc.isGrounded;
             UpdateInputData();
             Move();
         }
 
-        private void UpdateInputData() {
+        private void UpdateInputData()
+        {
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
             if(Input.GetKeyDown(KeyCode.Space))
@@ -66,14 +79,16 @@ namespace Gameplay.Player {
                 testGun.StartModeSwitch();
         }
 
-        private void Move() {
-            if (grounded && gravityVector.y < 0)
+        private void Move()
+        {
+            if(grounded && gravityVector.y < 0)
                 gravityVector.y = -2;
             Vector3 _moveDir = ((transform.forward * verticalInput) + (transform.right * horizontalInput)).normalized;
             Vector3 _move = _moveDir * movementSpeed * Time.deltaTime;
             cc.Move(_move);
 
-            if (jump) {
+            if(jump)
+            {
                 if(grounded)
                     gravityVector.y = Mathf.Sqrt(jumpHight * -2 * gravity);
                 else
