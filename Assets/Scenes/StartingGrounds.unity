@@ -1923,32 +1923,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f32f30aefd57547bb3047aacf9bdfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normal:
-    FireMode: 0
-    ElementData:
-      Element: 4
-      ElementPower: 50
-      TriggerChance: 20
-    BulletObj_GO: {fileID: 6467990576980604152, guid: fd2d50d8434e2914f83aaf4d190cb02c, type: 3}
-    ModeDisplayName_S: Radiation Burst
-    RecoilAmount_F: 0
-    GapBtwShots_F: 0.1
-    SpreadAmount_F: 1
-    BulletsPerBurst_I: 3
-  copyNormalToADS: 1
+  normal: {fileID: 11400000, guid: 656255ac9e34729489cb9f801a663531, type: 2}
   adsSprite: {fileID: 21300000, guid: f1cb9699716f75d4da0f1dc4b3bf5706, type: 3}
-  ads:
-    FireMode: 1
-    ElementData:
-      Element: 0
-      ElementPower: 0
-      TriggerChance: 0
-    BulletObj_GO: {fileID: 0}
-    ModeDisplayName_S: Not Entered
-    RecoilAmount_F: 0
-    GapBtwShots_F: 0.1
-    SpreadAmount_F: 1
-    BulletsPerBurst_I: -1
+  ads: {fileID: 11400000, guid: ae0b262382ea6ff418ae65d0a166bd34, type: 2}
 --- !u!114 &1021345004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1961,32 +1938,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f32f30aefd57547bb3047aacf9bdfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normal:
-    FireMode: 1
-    ElementData:
-      Element: 0
-      ElementPower: 0
-      TriggerChance: 0
-    BulletObj_GO: {fileID: 6467990576980604152, guid: fd2d50d8434e2914f83aaf4d190cb02c, type: 3}
-    ModeDisplayName_S: Auto
-    RecoilAmount_F: 0
-    GapBtwShots_F: 0.3
-    SpreadAmount_F: 1
-    BulletsPerBurst_I: -1
-  copyNormalToADS: 1
+  normal: {fileID: 11400000, guid: 3b7b1b924181b1943918b31cea220318, type: 2}
   adsSprite: {fileID: 21300000, guid: 57524ec28f991c946b245000242838f6, type: 3}
-  ads:
-    FireMode: 0
-    ElementData:
-      Element: 0
-      ElementPower: 0
-      TriggerChance: 0
-    BulletObj_GO: {fileID: 0}
-    ModeDisplayName_S: Radiation Burst
-    RecoilAmount_F: 0
-    GapBtwShots_F: 0.1
-    SpreadAmount_F: 1
-    BulletsPerBurst_I: 3
+  ads: {fileID: 11400000, guid: 3b7b1b924181b1943918b31cea220318, type: 2}
 --- !u!114 &1021345005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2007,9 +1961,9 @@ MonoBehaviour:
   rayRange: 1000
   bulletHitLayers:
     serializedVersion: 2
-    m_Bits: 759
+    m_Bits: 631
   debugTargetPoint: 0
-  debugTargetPointTransform: {fileID: 0}
+  debugTargetPointTransform: {fileID: 2133747302}
 --- !u!23 &1021345007
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4176,7 +4130,7 @@ GameObject:
   - component: {fileID: 2133747301}
   - component: {fileID: 2133747300}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: DebuggingSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

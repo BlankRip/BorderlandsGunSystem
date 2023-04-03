@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.Guns {
-    [System.Serializable]
-    public class GunModeData
+    [CreateAssetMenu()]
+    public class GunModeData: ScriptableObject
     {
         public FiringMode FireMode;
         public ElementData ElementData;

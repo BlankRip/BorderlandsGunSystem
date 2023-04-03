@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3027f6d2a313c5d468c863015aac0c60, type: 3}
+  m_Name: 0_TestModeNormal
+  m_EditorClassIdentifier: 
+  FireMode: 1
+  ElementData:
+    Element: 0
+    ElementPower: 0
+    TriggerChance: 0
+  BulletObj_GO: {fileID: 6467990576980604152, guid: fd2d50d8434e2914f83aaf4d190cb02c, type: 3}
+  ModeDisplayName_S: Auto
+  RecoilAmount_F: 0
+  GapBtwShots_F: 0.3
+  SpreadAmount_F: 1
+  BulletsPerBurst_I: -1
