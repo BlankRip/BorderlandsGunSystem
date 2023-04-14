@@ -168,6 +168,10 @@ namespace Gameplay.Guns {
         {
             Vector3 targetPos = Vector3.zero;
             Ray ray =  playerCam.ScreenPointToRay(new Vector2(Screen.width/2, Screen.height/2));
+            ray.direction = (ray.direction + new Vector3(
+                            Random.Range(-currentModeData.SpreadAmount_V3.x, currentModeData.SpreadAmount_V3.x),
+                            Random.Range(-currentModeData.SpreadAmount_V3.y, currentModeData.SpreadAmount_V3.y),
+                            Random.Range(-currentModeData.SpreadAmount_V3.z, currentModeData.SpreadAmount_V3.z))).normalized;
             RaycastHit hitResult;
             if(Physics.Raycast(ray, out hitResult, rayRange, bulletHitLayers))
             {

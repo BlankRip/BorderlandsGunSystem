@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.Guns {
-    [CreateAssetMenu()]
+    [CreateAssetMenu(fileName = "Gun Mode Data", menuName = "Guns/Gun Mode Data", order = 0)]
     public class GunModeData: ScriptableObject
     {
         public FiringMode FireMode;
         public ElementData ElementData;
         public GameObject BulletObj_GO;
         public string ModeDisplayName_S;
+        public Vector3 SpreadAmount_V3;
         public float RecoilAmount_F;
         public float GapBtwShots_F;
-        public float SpreadAmount_F;
         public int BulletsPerBurst_I;
 
         public GunModeData() {
@@ -22,7 +22,7 @@ namespace Gameplay.Guns {
             ModeDisplayName_S = "Not Entered";
             RecoilAmount_F = 0;
             GapBtwShots_F = 0.3f;
-            SpreadAmount_F = 1;
+            SpreadAmount_V3 = new Vector3(0.0f, 0.0f, 0.0f);
             BulletsPerBurst_I = -1;
         }
 
@@ -32,7 +32,7 @@ namespace Gameplay.Guns {
             this.BulletObj_GO = _copyFrom.BulletObj_GO;
             this.RecoilAmount_F = _copyFrom.RecoilAmount_F;
             this.GapBtwShots_F = _copyFrom.GapBtwShots_F;
-            this.SpreadAmount_F = _copyFrom.SpreadAmount_F;
+            this.SpreadAmount_V3 = _copyFrom.SpreadAmount_V3;
         }
     }
 }

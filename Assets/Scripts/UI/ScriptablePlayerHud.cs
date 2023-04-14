@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.UI {
-    [CreateAssetMenu()]
+    [CreateAssetMenu(fileName = "Player HUD", menuName = "ScriptableItems/Player HUD")]
     public class ScriptablePlayerHud : ScriptableObject
     {
         public IGunHud gunHud;

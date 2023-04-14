@@ -19,7 +19,7 @@ MonoBehaviour:
     TriggerChance: 0
   BulletObj_GO: {fileID: 6467990576980604152, guid: fd2d50d8434e2914f83aaf4d190cb02c, type: 3}
   ModeDisplayName_S: Auto
+  SpreadAmount_V3: {x: 0.02, y: 0.02, z: 0}
   RecoilAmount_F: 0
   GapBtwShots_F: 0.3
-  SpreadAmount_F: 1
   BulletsPerBurst_I: -1

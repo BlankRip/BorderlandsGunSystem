@@ -5,7 +5,6 @@ using UnityEngine;
 namespace Gameplay.Guns.Projectile {
     public class TestBullet : ProjectileBase
     {
-        [SerializeField] float moveSpeed = 20.0f;
         private Rigidbody rb;
 
         private void Start()
