@@ -43,6 +43,9 @@ namespace Gameplay.Guns {
         protected float timer;
         protected int burstTracker;
 
+        protected float spreadTimer;
+        protected float stoppedShootingTime;
+
         bool initilizedGun;
 
         protected void Start()
@@ -73,6 +76,7 @@ namespace Gameplay.Guns {
             if(ammoSupply == null)
                 ammoSupply = _supply;
             ammoSupply.SetCurrentAmmoSupplier(gunType);
+            spreadTimer = 0;
 
             if(currentModeData == null)
                 Start();
@@ -111,7 +115,22 @@ namespace Gameplay.Guns {
                         if(burstTracker >= currentModeData.BulletsPerBurst_I)
                             firing = false;
                     }
-                }
+                }   
+            }
+            HandleSpreadTimer();
+        }
+
+        private void HandleSpreadTimer()
+        {
+            if(currentModeData.spreadConfig.TypeOfSpread == GunSpreadConfig.SpreadType.None)
+                return;
+
+            if(firing)
+                spreadTimer = Mathf.Clamp(0, spreadTimer + Time.deltaTime, currentModeData.spreadConfig.MaxSpreadTime_F);
+            else
+            {
+                float recoveryPercentage = (currentModeData.spreadConfig.RecoilRevoverySpeed - (Time.time - stoppedShootingTime))/currentModeData.spreadConfig.RecoilRevoverySpeed;
+                spreadTimer = Mathf.Lerp(0, currentModeData.spreadConfig.MaxSpreadTime_F, Mathf.Clamp01(recoveryPercentage));
             }
         }
 
@@ -146,7 +165,10 @@ namespace Gameplay.Guns {
                     burstTracker = 0;
                 } 
                 else
+                {
+                    spreadTimer = 0;
                     Fire();
+                }
             }
         }
 
@@ -168,10 +190,7 @@ namespace Gameplay.Guns {
         {
             Vector3 targetPos = Vector3.zero;
             Ray ray =  playerCam.ScreenPointToRay(new Vector2(Screen.width/2, Screen.height/2));
-            ray.direction = (ray.direction + new Vector3(
-                            Random.Range(-currentModeData.SpreadAmount_V3.x, currentModeData.SpreadAmount_V3.x),
-                            Random.Range(-currentModeData.SpreadAmount_V3.y, currentModeData.SpreadAmount_V3.y),
-                            Random.Range(-currentModeData.SpreadAmount_V3.z, currentModeData.SpreadAmount_V3.z))).normalized;
+            ray.direction = (ray.direction + currentModeData.spreadConfig.GetSpread(spreadTimer)).normalized;
             RaycastHit hitResult;
             if(Physics.Raycast(ray, out hitResult, rayRange, bulletHitLayers))
             {
@@ -197,6 +216,7 @@ namespace Gameplay.Guns {
         public void StopFiring()
         {
             firing = false;
+            stoppedShootingTime = Time.time;
         }
 
         public virtual void StartReload()
