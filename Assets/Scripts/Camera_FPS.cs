@@ -8,6 +8,7 @@ namespace Gameplay.Player {
         [SerializeField] float sensitivity;
         [SerializeField] float mouseYMin = -90.0f;
         [SerializeField] float mouseYMax = 45.0f;
+        [SerializeField] Transform camObjet;
 
         private float mouseX;
         private float mouseY;
@@ -24,7 +25,7 @@ namespace Gameplay.Player {
             mouseY = Mathf.Clamp(mouseY, mouseYMin, mouseYMax);
 
             transform.rotation = Quaternion.Euler(0, mouseX, 0);                         // Rotating player with change in mouse X value
-            cam.transform.rotation = Quaternion.Euler(mouseY, mouseX, 0);             // Rotationg camera with change in mouse X and Y values
+            camObjet.transform.rotation = Quaternion.Euler(mouseY, mouseX, 0);             // Rotationg camera with change in mouse X and Y values
         }
     }
 }

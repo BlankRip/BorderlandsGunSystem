@@ -23,27 +23,27 @@ namespace Gameplay.Guns
 
         public Vector3 GetSpread(float _shootTime)
         {
-            Vector3 spreadAmount = Vector3.zero;
+            Vector3 spread = Vector3.zero;
             switch (TypeOfSpread)
             {
                 case SpreadType.Simple:
                 {
-                        Vector3 targetSpread = new Vector3(
-                        Random.Range(this.spreadAmount.x, this.spreadAmount.x),
-                        Random.Range(this.spreadAmount.y, this.spreadAmount.y),
-                        Random.Range(this.spreadAmount.z, this.spreadAmount.z)
+                    Vector3 targetSpread = new Vector3(
+                    Random.Range(-spreadAmount.x, spreadAmount.x),
+                    Random.Range(-spreadAmount.y, spreadAmount.y),
+                    Random.Range(-spreadAmount.z, spreadAmount.z)
                     );
-                    spreadAmount = Vector3.Lerp(Vector3.zero, targetSpread, Mathf.Clamp01(_shootTime/MaxSpreadTime_F));
+                    spread = Vector3.Lerp(Vector3.zero, targetSpread, Mathf.Clamp01(_shootTime/MaxSpreadTime_F));
                     break;
                 }
                 case SpreadType.Texture:
                 {
-                    spreadAmount = GetTextureDirection(_shootTime);
-                    spreadAmount *= spreadMultiplier;
+                    spread = GetTextureDirection(_shootTime);
+                    spread *= spreadMultiplier;
                     break;
                 }
             }
-            return spreadAmount;
+            return spread;
         }
 
         private Vector3 GetTextureDirection(float _shootTime)

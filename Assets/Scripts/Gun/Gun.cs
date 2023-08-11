@@ -14,6 +14,7 @@ namespace Gameplay.Guns {
         [SerializeField] Transform muzzlePosition;
         [SerializeField] float rayRange = 1000.0f;
         [SerializeField] LayerMask bulletHitLayers;
+        [SerializeField] Transform rotationModel;
 
         [Space] [Header("Debugging")]
         [SerializeField] bool debugTargetPoint;
@@ -45,6 +46,7 @@ namespace Gameplay.Guns {
 
         protected float spreadTimer;
         protected float stoppedShootingTime;
+        protected Quaternion spawnedRotation;
 
         bool initilizedGun;
 
@@ -67,6 +69,7 @@ namespace Gameplay.Guns {
             gunState = GunState.Idel;
             CurrentInClip = clipSize;
 
+            spawnedRotation = rotationModel.localRotation;
             initilizedGun = true;
         }
 
@@ -126,10 +129,12 @@ namespace Gameplay.Guns {
                 return;
 
             if(firing)
-                spreadTimer = Mathf.Clamp(0, spreadTimer + Time.deltaTime, currentModeData.spreadConfig.MaxSpreadTime_F);
+                spreadTimer = Mathf.Clamp(spreadTimer + Time.deltaTime, 0, currentModeData.spreadConfig.MaxSpreadTime_F);
             else
             {
-                float recoveryPercentage = (currentModeData.spreadConfig.RecoilRevoverySpeed - (Time.time - stoppedShootingTime))/currentModeData.spreadConfig.RecoilRevoverySpeed;
+                float recoverySpeed = currentModeData.spreadConfig.RecoilRevoverySpeed;
+                rotationModel.localRotation = Quaternion.Lerp(rotationModel.localRotation, spawnedRotation, recoverySpeed * Time.deltaTime);
+                float recoveryPercentage = (recoverySpeed - (Time.time - stoppedShootingTime))/recoverySpeed;
                 spreadTimer = Mathf.Lerp(0, currentModeData.spreadConfig.MaxSpreadTime_F, Mathf.Clamp01(recoveryPercentage));
             }
         }
@@ -177,6 +182,7 @@ namespace Gameplay.Guns {
             if(CurrentInClip > 0)
             {
                 CurrentInClip--;
+                Debug.Log(muzzlePosition.position);
                 IProjectile spawned = Instantiate(currentModeData.BulletObj_GO, muzzlePosition.position, muzzlePosition.rotation).GetComponent<IProjectile>();
                 spawned.Initilize(CaluculateProjectileTarget(), weaponDamage, currentModeData.ElementData);
             }
@@ -190,7 +196,8 @@ namespace Gameplay.Guns {
         {
             Vector3 targetPos = Vector3.zero;
             Ray ray =  playerCam.ScreenPointToRay(new Vector2(Screen.width/2, Screen.height/2));
-            ray.direction = (ray.direction + currentModeData.spreadConfig.GetSpread(spreadTimer)).normalized;
+            Vector3 spread = currentModeData.spreadConfig.GetSpread(spreadTimer);
+            ray.direction = (ray.direction + spread).normalized;
             RaycastHit hitResult;
             if(Physics.Raycast(ray, out hitResult, rayRange, bulletHitLayers))
             {
@@ -210,6 +217,10 @@ namespace Gameplay.Guns {
                     debugTargetPointTransform.position = targetPos;
                 }
             }
+
+            //Setting gun forward in the direction to give feel of recoile
+            rotationModel.forward += transform.TransformDirection(spread);
+
             return targetPos;
         }
 
