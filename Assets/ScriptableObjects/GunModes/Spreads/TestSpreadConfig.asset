@@ -15,6 +15,6 @@ MonoBehaviour:
   TypeOfSpread: 1
   RecoilRevoverySpeed: 1
   MaxSpreadTime_F: 1
-  spreadAmount: {x: 0.02, y: 0.02, z: 0}
+  spreadAmount: {x: 0.01, y: 0.01, z: 0}
   spreadMultiplier: 0.1
   spreadTexture: {fileID: 0}

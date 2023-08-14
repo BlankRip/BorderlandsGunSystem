@@ -47,6 +47,7 @@ namespace Gameplay.Guns {
         protected float spreadTimer;
         protected float stoppedShootingTime;
         protected Quaternion spawnedRotation;
+        protected Transform recoileTransform;
 
         bool initilizedGun;
 
@@ -70,6 +71,10 @@ namespace Gameplay.Guns {
             CurrentInClip = clipSize;
 
             spawnedRotation = rotationModel.localRotation;
+            recoileTransform = new GameObject("RecoilTransform").transform;
+            recoileTransform.parent = rotationModel.parent;
+            recoileTransform.position = rotationModel.position;
+            recoileTransform.rotation = rotationModel.rotation;
             initilizedGun = true;
         }
 
@@ -129,7 +134,10 @@ namespace Gameplay.Guns {
                 return;
 
             if(firing)
+            {
+                rotationModel.rotation = Quaternion.Lerp(rotationModel.rotation, recoileTransform.rotation, 3 * Time.deltaTime);
                 spreadTimer = Mathf.Clamp(spreadTimer + Time.deltaTime, 0, currentModeData.spreadConfig.MaxSpreadTime_F);
+            }
             else
             {
                 float recoverySpeed = currentModeData.spreadConfig.RecoilRevoverySpeed;
@@ -158,6 +166,7 @@ namespace Gameplay.Guns {
         }
 
         public void StartFiring() {
+            recoileTransform.forward = rotationModel.forward;
             if(currentModeData.FireMode == FiringMode.Auto)
             {
                 firing = true;
@@ -182,7 +191,6 @@ namespace Gameplay.Guns {
             if(CurrentInClip > 0)
             {
                 CurrentInClip--;
-                Debug.Log(muzzlePosition.position);
                 IProjectile spawned = Instantiate(currentModeData.BulletObj_GO, muzzlePosition.position, muzzlePosition.rotation).GetComponent<IProjectile>();
                 spawned.Initilize(CaluculateProjectileTarget(), weaponDamage, currentModeData.ElementData);
             }
@@ -219,7 +227,9 @@ namespace Gameplay.Guns {
             }
 
             //Setting gun forward in the direction to give feel of recoile
-            rotationModel.forward += transform.TransformDirection(spread);
+            //rotationModel.forward += transform.TransformDirection(spread);
+            recoileTransform.forward += transform.TransformDirection(spread);
+            Debug.Log($"My:{recoileTransform.forward}, Agains: {rotationModel.forward}");
 
             return targetPos;
         }
